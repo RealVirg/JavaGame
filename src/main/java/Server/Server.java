@@ -40,6 +40,15 @@ public class Server
 
             i++;
 
+            if (i == 2)
+            {
+                int l = 1;
+                for (ClientHandler mc : ar)
+                {
+                    mc.dos.writeUTF("Connection complete. Your mate is client " + l);
+                    l--;
+                }
+            }
         }
     }
 }
