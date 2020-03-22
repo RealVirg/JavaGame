@@ -7,15 +7,26 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
+import javax.swing.JFrame;
 
 public class ClientA {
     final static int ServerPort = 1234;
 
     public static void main(String args[]) throws UnknownHostException, IOException
     {
+        JFrame frame = new JFrame("JustGame");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frame.setUndecorated(true);
+        Main m = new Main(frame);
+        frame.add(m);
+        frame.setVisible(true);
+        
         final Scanner scn = new Scanner(System.in);
 
-        String mate = "nothing";
+        final String[] mate = new String[2];
+        mate[0] = "nothing";
+        mate[1] = "";
 
         InetAddress ip = InetAddress.getByName("localhost");
 
@@ -41,59 +52,51 @@ public class ClientA {
 //            }
 //        });
 
-//        Thread readMessage = new Thread(new Runnable()
-//        {
-//            @Override
-//            public void run() {
-//
-//                while (true) {
-//                    try {
-//                        String msg = dis.readUTF();
-//                        if (msg.equals("Connection complete. Your mate is client 0"))
-//                            mate[0] = "client 0";
-//                        if (msg.equals("Connection complete. Your mate is client 1"))
-//                            mate[0] = "client 1";
-//                        System.out.println(msg);
-//                    } catch (IOException e) {
-//
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//        });
+        Thread readMessage = new Thread(new Runnable()
+        {
+            @Override
+            public void run() {
+
+                while (true) {
+                    try {
+                        String msg = dis.readUTF();
+                        if (msg.equals("Connection complete. Your mate is client 0"))
+                            mate[0] = "client 0";
+                        else if (msg.equals("Connection complete. Your mate is client 1"))
+                            mate[0] = "client 1";
+                        else
+                        {
+                            mate[1] = msg;
+                        }
+                        System.out.println(msg);
+                    } catch (IOException e) {
+
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
 
 //        sendMessage.start();
-//        readMessage.start();
+        readMessage.start();
         boolean run = true;
         while (run)
         {
-            String currentMessage = "";
-            try {
-                String msg = dis.readUTF();
-                if (msg.equals("Connection complete. Your mate is client 0"))
-                    mate = "client 0";
-                else if (msg.equals("Connection complete. Your mate is client 1"))
-                    mate = "client 1";
-                else {
-                    currentMessage = msg;
-                }
-                System.out.println(msg);
-            } catch (IOException e) {
-
-                e.printStackTrace();
-            }
-            if (currentMessage.length() != 0 && !mate.equals("nothing"))
+            System.out.println(mate[1]);
+            String currentMessage = mate[1];
+            if (currentMessage.length() != 0 && !mate[0].equals("nothing"))
             {
-                //изменение переменных от сообщения
+                String[] ar = mate[1].split(" ");
+                m.player2.changeX(Integer.parseInt(ar[0]));
+                m.player2.changeY(Integer.parseInt(ar[1]));
             }
 
-            
+
             //main game method
 
-
-            if (!mate.equals("nothing"))
+            if (!mate[0].equals("nothing"))
             {
-                dos.writeUTF("test#" + mate);
+                dos.writeUTF(m.player.getX() + " " + m.player.getY() + "#" + mate[0]);
             }
         }
     }
