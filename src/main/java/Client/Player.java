@@ -2,20 +2,11 @@ package Client;
 
 import java.awt.event.KeyEvent;
 
-public class Player {
-    private int x = 0;
-    private int y = 0;
-    private int speed = 2;
-
-    public void changeX(int newX)
-    {
-        x = newX;
-    }
-
-    public void changeY(int newY)
-    {
-        y = newY;
-    }
+public class Player
+{
+    private int x;
+    private int y;
+    private int speed;
 
     enum Direction
     {
@@ -27,6 +18,23 @@ public class Player {
     }
 
     Direction playerDirection = Direction.NONE;
+
+    public Player(int X, int Y, int Speed)
+    {
+        x = X;
+        y = Y;
+        speed = Speed;
+    }
+
+    public void changeX(int newX)
+    {
+        x = newX;
+    }
+
+    public void changeY(int newY)
+    {
+        y = newY;
+    }
 
     public int getX() {
         return x;
@@ -40,11 +48,16 @@ public class Player {
         return speed;
     }
 
+    public void jump()
+    {
+
+    }
+
     public void move()
     {
         switch(playerDirection) {
             case UP:
-                y-=speed;
+                this.jump();
                 break;
             case DOWN:
                 y+=speed;

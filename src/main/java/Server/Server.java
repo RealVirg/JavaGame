@@ -7,45 +7,45 @@ import java.net.*;
 public class Server
 {
 
-    static Vector<ClientHandler> ar = new Vector<ClientHandler>();
+    static Vector<ClientHandler> clients = new Vector<ClientHandler>();
 
-    static int i = 0;
+    static int clientsCount = 0;
 
     public static void main(String[] args) throws IOException
     {
-        ServerSocket ss = new ServerSocket(1234);
+        ServerSocket serverSocket = new ServerSocket(1234);
 
-        Socket s;
+        Socket socket;
 
         while (true)
         {
-            s = ss.accept();
+            socket = serverSocket.accept();
 
-            System.out.println("New client request received : " + s);
+            System.out.println("New client request received : " + socket);
 
-            DataInputStream dis = new DataInputStream(s.getInputStream());
-            DataOutputStream dos = new DataOutputStream(s.getOutputStream());
+            DataInputStream inputStream = new DataInputStream(socket.getInputStream());
+            DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
 
             System.out.println("Creating a new handler for this client...");
 
-            ClientHandler mtch = new ClientHandler(s,"client " + i, dis, dos);
+            ClientHandler clientHandler = new ClientHandler(socket,"client " + clientsCount, inputStream, outputStream);
 
-            Thread t = new Thread(mtch);
+            Thread thread = new Thread(clientHandler);
 
             System.out.println("Adding this client to active client list");
 
-            ar.add(mtch);
+            clients.add(clientHandler);
 
-            t.start();
+            thread.start();
 
-            i++;
+            clientsCount++;
 
-            if (i == 2)
+            if (clientsCount == 2)
             {
                 int l = 1;
-                for (ClientHandler mc : ar)
+                for (ClientHandler mc : clients)
                 {
-                    mc.dos.writeUTF("Connection complete. Your mate is client " + l);
+                    mc.outputStream.writeUTF("Connection complete. Your mate is client " + l);
                     l--;
                 }
             }

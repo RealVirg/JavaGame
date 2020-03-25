@@ -9,20 +9,20 @@ import java.util.StringTokenizer;
 
 class ClientHandler implements Runnable
 {
-    Scanner scn = new Scanner(System.in);
+    Scanner scanner = new Scanner(System.in);
     private String name;
-    final DataInputStream dis;
-    final DataOutputStream dos;
-    Socket s;
-    boolean isloggedin;
+    final DataInputStream inputStream;
+    final DataOutputStream outputStream;
+    Socket socket;
+    boolean isLoggedIn;
 
     public ClientHandler(Socket s, String name,
                          DataInputStream dis, DataOutputStream dos) {
-        this.dis = dis;
-        this.dos = dos;
+        this.inputStream = dis;
+        this.outputStream = dos;
         this.name = name;
-        this.s = s;
-        this.isloggedin=true;
+        this.socket = s;
+        this.isLoggedIn =true;
     }
 
     @Override
@@ -33,27 +33,27 @@ class ClientHandler implements Runnable
         {
             try
             {
-                received = dis.readUTF();
+                received = inputStream.readUTF();
 
                 System.out.println(received);
 
                 if(received.equals("logout")){
-                    this.isloggedin=false;
-                    this.s.close();
+                    this.isLoggedIn =false;
+                    this.socket.close();
                     break;
                 }
 
                 // тут идет расспознование сообщения клиента сервером и передача сообщения нужному клиенту
-                StringTokenizer st = new StringTokenizer(received, "#");
-                String MsgToSend = st.nextToken();
-                String recipient = st.nextToken();
+                StringTokenizer token = new StringTokenizer(received, "#");
+                String MsgToSend = token.nextToken();
+                String receiver = token.nextToken();
 
-                for (ClientHandler mc : Server.ar)
+                for (ClientHandler mc : Server.clients)
                 {
-                    if (mc.name.equals(recipient) && mc.isloggedin)
+                    if (mc.name.equals(receiver) && mc.isLoggedIn)
                     {
 //                        mc.dos.writeUTF(this.name+" : "+MsgToSend);
-                        mc.dos.writeUTF(MsgToSend);
+                        mc.outputStream.writeUTF(MsgToSend);
                         break;
                     }
                 }
@@ -65,8 +65,8 @@ class ClientHandler implements Runnable
         }
         try
         {
-            this.dis.close();
-            this.dos.close();
+            this.inputStream.close();
+            this.outputStream.close();
 
         }catch(IOException e){
             e.printStackTrace();
