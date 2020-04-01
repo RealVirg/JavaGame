@@ -1,12 +1,18 @@
 package Client;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Player
 {
     private int x;
     private int y;
     private int speed;
+    private int acceleration;
 
     enum Direction
     {
@@ -19,11 +25,12 @@ public class Player
 
     Direction playerDirection = Direction.NONE;
 
-    public Player(int X, int Y, int Speed)
+    public Player(int X, int Y, int Speed, int acc)
     {
         x = X;
         y = Y;
         speed = Speed;
+        acceleration = acc;
     }
 
     public void changeX(int newX)
@@ -48,20 +55,60 @@ public class Player
         return speed;
     }
 
+    /*
     public void jump()
     {
+        final Timer timer;
+        timer = new Timer(10, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                y -= speed;
+                speed -= acceleration;
 
+            }
+        });
+        if (speed<=0)
+            timer.setRepeats(false);
+        timer.start();
+    }
+     */
+
+    public void jump()
+    {
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run()
+            {
+                speed = speed + acceleration;
+
+                y -= speed;
+
+                if (y == 1030)  //GameObject.room.height
+                {
+                    speed = 20;
+                    acceleration = 0;
+                    cancel();
+                }
+            }
+        };
+
+        Timer timer = new Timer();
+        int delay = 1;
+        int period = 20;
+        timer.scheduleAtFixedRate(task, delay, period);
     }
 
     public void move()
     {
         switch(playerDirection) {
             case UP:
+                acceleration = -1;
                 this.jump();
                 break;
-            case DOWN:
-                y+=speed;
-                break;
+            //case DOWN:
+            //    y+=speed;
+            //    break;
             case LEFT:
                 x-=speed;
                 break;
@@ -74,15 +121,17 @@ public class Player
         playerDirection = Direction.NONE;
     }
 
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent e)
+    {
         System.out.println(e.getKeyCode());
         int key = e.getKeyCode();
+
         if (key == KeyEvent.VK_W) {
             playerDirection = Direction.UP;
         }
-        if (key == KeyEvent.VK_S) {
-            playerDirection = Direction.DOWN;
-        }
+        //if (key == KeyEvent.VK_S) {
+        //    playerDirection = Direction.DOWN;
+        //}
         if (key == KeyEvent.VK_A) {
             playerDirection = Direction.LEFT;
         }
@@ -92,7 +141,8 @@ public class Player
 
     }
 
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent e)
+    {
 
     }
 }
