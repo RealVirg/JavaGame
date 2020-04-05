@@ -5,15 +5,20 @@ import java.util.ArrayList;
 public class Room
 {
 
-    public int height;
-    public int width;
+    public static int height;
+    public static int width;
 
-    public ArrayList<Content> content;
+    public static ArrayList<Content> content;
 
-    public Room(int H, int W, ArrayList<Content> cont)
+    public void addObjects(Content obj)
     {
+        content.add(obj);
+    }
+
+    public Room(int H, int W)
+    {
+        content = new ArrayList<Content>();
         height = H;
         width = W;
-        content = cont;
     }
 }

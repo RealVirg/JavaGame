@@ -2,11 +2,11 @@ package Client;
 
 public class Content
 {
-    private int x;
-    private int y;
+    public int x;
+    public int y;
 
-    private int height;
-    private int width;
+    public int height;
+    public int width;
 
     enum Construction
     {

@@ -1,8 +1,5 @@
 package Client;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -11,8 +8,9 @@ public class Player
 {
     private int x;
     private int y;
-    private int speed;
-    private int acceleration;
+    private int speedX;
+    private int speedY;
+    private int accelerationY;
 
     enum Direction
     {
@@ -25,12 +23,13 @@ public class Player
 
     Direction playerDirection = Direction.NONE;
 
-    public Player(int X, int Y, int Speed, int acc)
+    public Player(int X, int Y, int speedX, int speedY, int acc)
     {
-        x = X;
-        y = Y;
-        speed = Speed;
-        acceleration = acc;
+        this.x = X;
+        this.y = Y;
+        this.speedX = speedX;
+        this.speedY = speedY;
+        this.accelerationY = acc;
     }
 
     public void changeX(int newX)
@@ -51,9 +50,14 @@ public class Player
         return y;
     }
 
-    public int getSpeed() {
-        return speed;
+    public int getSpeedX() {
+        return speedX;
     }
+
+    public int getSpeedY() {
+        return speedY;
+    }
+
 
     /*
     public void jump()
@@ -74,20 +78,26 @@ public class Player
     }
      */
 
+    public boolean inJumping = false;
+
     public void jump()
     {
+        inJumping = true;
+        speedY = 25;
+        accelerationY = -1;
         TimerTask task = new TimerTask() {
             @Override
             public void run()
             {
-                speed = speed + acceleration;
+                speedY += accelerationY;
 
-                y -= speed;
+                changeY(y- speedY);
 
-                if (y == 1030)  //GameObject.room.height
+                if (speedY == -24 || onFloor())  //GameObject.room.height
                 {
-                    speed = 20;
-                    acceleration = 0;
+                    speedY = 0;
+                    accelerationY = 0;
+                    inJumping = false;
                     cancel();
                 }
             }
@@ -99,21 +109,47 @@ public class Player
         timer.scheduleAtFixedRate(task, delay, period);
     }
 
+    public boolean onFloor()
+    {
+        for (Content e: Room.content)
+        {
+            if (y == e.y && x >= e.x && x <= e.x + e.width)
+                return true;
+        }
+
+       return false;
+    }
+
+    public boolean nearEdge(Direction dir)
+    {
+       if (dir == Direction.LEFT && x == 0)
+           return true;
+       else if (dir == Direction.RIGHT && x == Room.width - 50)
+           return true;
+       else
+           return false;
+    }
+
     public void move()
     {
         switch(playerDirection) {
             case UP:
-                acceleration = -1;
+                if (inJumping)
+                    break;
                 this.jump();
                 break;
             //case DOWN:
             //    y+=speed;
             //    break;
             case LEFT:
-                x-=speed;
+                if (nearEdge(Direction.LEFT))
+                    break;
+                x-= speedX;
                 break;
             case RIGHT:
-                x+=speed;
+                if (nearEdge(Direction.RIGHT))
+                    break;
+                x+= speedX;
                 break;
             default:
                 break;
