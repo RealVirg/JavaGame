@@ -30,6 +30,8 @@ public class GameObject extends JPanel implements ActionListener
     Player player1;
     Player player2;
 
+    boolean in_playing = false;
+
     public Room room;
 
     public GameObject(JFrame Frame) {
@@ -40,7 +42,7 @@ public class GameObject extends JPanel implements ActionListener
 
 
         startPositionX = 0;
-        startPositionY = 1030; //frame.getHeight - 50
+        startPositionY = 50;
         player1 = new Player(startPositionX, startPositionY, 20, 0);
         player2 = new Player(startPositionX, startPositionY, 20, 0);
         Frame.addKeyListener(new KeyAdapter() {
@@ -58,9 +60,11 @@ public class GameObject extends JPanel implements ActionListener
     public void paint(Graphics g)
     {
         g.drawImage(imgBackground, 0, 0,frame.getWidth(), frame.getHeight(), null);
-        g.drawImage(imgFloor, 100, 900, 100, 50, null);
-        g.drawImage(imgPlayer1, player1.getX(), player1.getY(), 50, 50, null);
-        g.drawImage(imgPlayer2, player2.getX(), player2.getY(), 50, 50, null);
+        if (in_playing) {
+            g.drawImage(imgFloor, 100, 900, 100, 50, null);
+            g.drawImage(imgPlayer1, player1.getX(), player1.getY(), 50, 50, null);
+            g.drawImage(imgPlayer2, player2.getX(), player2.getY(), 50, 50, null);
+        }
     }
 
     @Override

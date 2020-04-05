@@ -11,20 +11,6 @@ public class ClientA
 
     public static void main(String args[]) throws UnknownHostException, IOException
     {
-
-        final Scanner scanner = new Scanner(System.in);
-
-        InetAddress ip = InetAddress.getByName("localhost");
-
-        Socket socket = new Socket(ip, ServerPort);
-
-        final DataInputStream inputStream = new DataInputStream(socket.getInputStream());
-        final DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
-
-        final String[] mate = new String[2];
-        mate[0] = "nothing"; //если никто не подключен
-        mate[1] = "";
-
         JFrame frame = new JFrame("JustGame");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -32,7 +18,20 @@ public class ClientA
         GameObject gameObject = new GameObject(frame);
         frame.add(gameObject);
         frame.setVisible(true);
+        final boolean[] connection = {false, false};
 
+        final Scanner scanner = new Scanner(System.in);
+
+        final String[] mate = new String[2];
+        mate[0] = "nothing"; //если никто не подключен
+        mate[1] = "";
+
+        InetAddress ip = InetAddress.getByName("localhost");
+
+        Socket socket = new Socket(ip, ServerPort);
+
+        final DataInputStream inputStream = new DataInputStream(socket.getInputStream());
+        final DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
 
 //        Thread sendMessage = new Thread(new Runnable()
 //        {
@@ -60,10 +59,14 @@ public class ClientA
                     try {
                         String msg = inputStream.readUTF();
                         if (msg.equals("Connection complete. Your mate is client 0"))
+                        {
                             mate[0] = "client 0";
-
-                        else if (msg.equals("Connection complete. Your mate is client 1"))
+                            connection[0] = true;
+                        }
+                        else if (msg.equals("Connection complete. Your mate is client 1")) {
                             mate[0] = "client 1";
+                            connection[0] = true;
+                        }
                         else
                         {
                             mate[1] = msg;
@@ -82,6 +85,15 @@ public class ClientA
         boolean run = true;
         while (run)
         {
+            if (connection[0] && !connection[1])
+            {
+                gameObject.player1.changeX(0);
+                gameObject.player1.changeY(frame.getHeight() - 100);
+                gameObject.player2.changeX(0);
+                gameObject.player2.changeY(frame.getHeight() - 100);
+                gameObject.in_playing = true;
+                connection[1] = true;
+            }
             System.out.println(mate[1]);
             String currentMessage = mate[1];
             if (currentMessage.length() != 0 && !mate[0].equals("nothing"))
