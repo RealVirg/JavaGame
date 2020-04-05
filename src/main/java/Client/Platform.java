@@ -1,6 +1,6 @@
 package Client;
 
-public class Content
+public class Platform
 {
     public int x;
     public int y;
@@ -17,7 +17,7 @@ public class Content
 
     Construction construction = Construction.NONE;
 
-    public Content(int X, int Y, int H, int W, Construction type)
+    public Platform(int X, int Y, int H, int W, Construction type)
     {
         height = H;
         width = W;
@@ -25,4 +25,5 @@ public class Content
         x = X;
         y = Y;
     }
+
 }

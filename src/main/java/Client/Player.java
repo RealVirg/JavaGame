@@ -9,8 +9,8 @@ public class Player
     private int x;
     private int y;
     private int speedX;
-    private int speedY;
-    private int accelerationY;
+    private int speedY = 0;
+    private int accelerationY = 0;
 
     enum Direction
     {
@@ -23,13 +23,11 @@ public class Player
 
     Direction playerDirection = Direction.NONE;
 
-    public Player(int X, int Y, int speedX, int speedY, int acc)
+    public Player(int X, int Y, int speedX)
     {
         this.x = X;
         this.y = Y;
         this.speedX = speedX;
-        this.speedY = speedY;
-        this.accelerationY = acc;
     }
 
     public void changeX(int newX)
@@ -62,29 +60,22 @@ public class Player
     /*
     public void jump()
     {
-        final Timer timer;
-        timer = new Timer(10, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                y -= speed;
-                speed -= acceleration;
+        inJumping = true;
+        speedY = 25;
+        accelerationY = -1;
 
-            }
-        });
-        if (speed<=0)
-            timer.setRepeats(false);
-        timer.start();
+
     }
      */
 
     public boolean inJumping = false;
+    public boolean inFalling = false;
 
-    public void jump()
+    public void jump(final Room room)
     {
         inJumping = true;
-        speedY = 25;
-        accelerationY = -1;
+        speedY = 80;
+        accelerationY = -10;
         TimerTask task = new TimerTask() {
             @Override
             public void run()
@@ -93,7 +84,7 @@ public class Player
 
                 changeY(y- speedY);
 
-                if (speedY == -24 || onFloor())  //GameObject.room.height
+                if (speedY < 0 && onFloor(room))
                 {
                     speedY = 0;
                     accelerationY = 0;
@@ -104,14 +95,45 @@ public class Player
         };
 
         Timer timer = new Timer();
-        int delay = 1;
-        int period = 20;
+        int delay = 2;
+        int period = 32;
         timer.scheduleAtFixedRate(task, delay, period);
     }
 
-    public boolean onFloor()
+    public void fall(final Room room)
     {
-        for (Content e: Room.content)
+        inFalling = true;
+        accelerationY = -10;
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run()
+            {
+                speedY += accelerationY;
+
+                changeY(y- speedY);
+
+                if (onFloor(room))
+                {
+                    speedY = 0;
+                    accelerationY = 0;
+                    inFalling = false;
+                    cancel();
+                }
+            }
+        };
+
+        Timer timer = new Timer();
+        int delay = 2;
+        int period = 32;
+        timer.scheduleAtFixedRate(task, delay, period);
+    }
+
+    public boolean onFloor(Room room)
+    {
+        if (y == room.height)
+            return true;
+
+        for (Platform e: room.platforms)
         {
             if (y == e.y && x >= e.x && x <= e.x + e.width)
                 return true;
@@ -120,34 +142,43 @@ public class Player
        return false;
     }
 
-    public boolean nearEdge(Direction dir)
+    public boolean outOfPlatform(Room room)
+    {
+        Platform tmp = room.getPlatformUnderPlayer(this);
+        if (!onFloor(room) && (x < tmp.x || x > tmp.x + tmp.width ))
+            return true;
+        else
+            return false;
+    }
+
+    public boolean nearEdge(Room room, Direction dir)
     {
        if (dir == Direction.LEFT && x == 0)
            return true;
-       else if (dir == Direction.RIGHT && x == Room.width - 50)
+       else if (dir == Direction.RIGHT && x == room.width - 50)
            return true;
        else
            return false;
     }
 
-    public void move()
+    public void move(Room room)
     {
         switch(playerDirection) {
             case UP:
                 if (inJumping)
                     break;
-                this.jump();
+                this.jump(room);
                 break;
             //case DOWN:
             //    y+=speed;
             //    break;
             case LEFT:
-                if (nearEdge(Direction.LEFT))
+                if (nearEdge(room, Direction.LEFT))
                     break;
                 x-= speedX;
                 break;
             case RIGHT:
-                if (nearEdge(Direction.RIGHT))
+                if (nearEdge(room, Direction.RIGHT))
                     break;
                 x+= speedX;
                 break;

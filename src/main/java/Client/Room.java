@@ -5,20 +5,31 @@ import java.util.ArrayList;
 public class Room
 {
 
-    public static int height;
-    public static int width;
+    public int height;
+    public int width;
 
-    public static ArrayList<Content> content;
+    public ArrayList<Platform> platforms;
 
-    public void addObjects(Content obj)
+    public void addObjects(Platform obj)
     {
-        content.add(obj);
+        platforms.add(obj);
     }
 
     public Room(int H, int W)
     {
-        content = new ArrayList<Content>();
+        platforms = new ArrayList<Platform>();
         height = H;
         width = W;
+    }
+
+    public Platform getPlatformUnderPlayer(Player player)
+    {
+        for (Platform p: platforms)
+        {
+            if (p.y == player.getY() && p.x <= player.getX() && p.x + p.width >= player.getX())
+                return p;
+        }
+
+        return null;
     }
 }

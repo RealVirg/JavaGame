@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -39,17 +38,35 @@ public class GameObject extends JPanel implements ActionListener
         this.frame = Frame;
 
         //room = new Room(frame.getHeight() - 50, frame.getWidth() - 50);
-        room = new Room(1080 - 50, 1920 - 50);
+        room = new Room(1080, 1920);
 
-        room.addObjects(new Content(0, 900, 50, 100, Content.Construction.FLOOR));
-        room.addObjects(new Content(100, 900, 50, 100, Content.Construction.FLOOR));
-        room.addObjects(new Content(200, 900, 50, 100, Content.Construction.FLOOR));
-        room.addObjects(new Content(3000, 900, 50, 100, Content.Construction.FLOOR));
+        room.addObjects(new Platform(0, 850, 50, 100, Platform.Construction.FLOOR));
+        room.addObjects(new Platform(100, 850, 50, 100, Platform.Construction.FLOOR));
+        room.addObjects(new Platform(200, 850, 50, 100, Platform.Construction.FLOOR));
+        room.addObjects(new Platform(300, 850, 50, 100, Platform.Construction.FLOOR));
+
+        room.addObjects(new Platform(400, 600, 50, 100, Platform.Construction.FLOOR));
+        room.addObjects(new Platform(500, 600, 50, 100, Platform.Construction.FLOOR));
+        room.addObjects(new Platform(600, 600, 50, 100, Platform.Construction.FLOOR));
+        room.addObjects(new Platform(700, 600, 50, 100, Platform.Construction.FLOOR));
+
+        room.addObjects(new Platform(0, 1030, 50, 200, Platform.Construction.FLOOR));
+        room.addObjects(new Platform(200, 1030, 50, 200, Platform.Construction.FLOOR));
+        room.addObjects(new Platform(400, 1030, 50, 200, Platform.Construction.FLOOR));
+        room.addObjects(new Platform(600, 1030, 50, 200, Platform.Construction.FLOOR));
+        room.addObjects(new Platform(800, 1030, 50, 200, Platform.Construction.FLOOR));
+        room.addObjects(new Platform(1000, 1030, 50, 200, Platform.Construction.FLOOR));
+        room.addObjects(new Platform(1200, 1030, 50, 200, Platform.Construction.FLOOR));
+        room.addObjects(new Platform(1400, 1030, 50, 200, Platform.Construction.FLOOR));
+        room.addObjects(new Platform(1600, 1030, 50, 200, Platform.Construction.FLOOR));
+        room.addObjects(new Platform(1800, 1030, 50, 200, Platform.Construction.FLOOR));
+
 
         startPositionX = 0;
-        startPositionY = 50;
-        player1 = new Player(startPositionX, startPositionY, 20, 0, 0);
-        player2 = new Player(startPositionX, startPositionY, 20, 0, 0);
+        startPositionY = 1030;
+
+        player1 = new Player(startPositionX, startPositionY, 20);
+        player2 = new Player(startPositionX, startPositionY, 20);
         Frame.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -66,7 +83,7 @@ public class GameObject extends JPanel implements ActionListener
     {
         g.drawImage(imgBackground, 0, 0,frame.getWidth(), frame.getHeight(), null);
         if (in_playing) {
-            for (Content e: room.content)
+            for (Platform e: room.platforms)
             {
                 g.drawImage(imgFloor, e.x, e.y, e.width, e.height, null);
             }
@@ -79,7 +96,7 @@ public class GameObject extends JPanel implements ActionListener
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
         repaint();
-        player1.move();
+        player1.move(room);
     }
 
 }
