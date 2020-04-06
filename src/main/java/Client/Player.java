@@ -71,18 +71,20 @@ public class Player
     public boolean inJumping = false;
     public boolean inFalling = false;
 
+// С ускорением
+
+    /*
     public void jump(final Room room)
     {
         inJumping = true;
-        speedY = 80;
+        speedY = 70;
         accelerationY = -10;
         TimerTask task = new TimerTask() {
             @Override
             public void run()
             {
-                speedY += accelerationY;
-
                 changeY(y- speedY);
+                speedY += accelerationY;
 
                 if (speedY < 0 && onFloor(room))
                 {
@@ -95,11 +97,56 @@ public class Player
         };
 
         Timer timer = new Timer();
-        int delay = 2;
-        int period = 32;
+        int delay = 1;
+        int period = 35;
+        timer.scheduleAtFixedRate(task, delay, period);
+    }
+*/
+
+// Без ускорения
+    public int deltaY = 0;
+
+///*
+    public void jump(final Room room)
+    {
+        inJumping = true;
+        speedY = 10;
+        deltaY = 0;
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run()
+            {
+                changeY(y- speedY);
+                speedY += accelerationY;
+                deltaY = deltaY + speedY;
+
+                if (deltaY == 300)
+                {
+                    speedY = -10;
+                    deltaY = 0;
+                }
+
+                if (deltaY < 0 && onFloor(room))
+                {
+                    speedY = 0;
+                    accelerationY = 0;
+                    inJumping = false;
+                    cancel();
+                }
+            }
+        };
+
+        Timer timer = new Timer();
+        int delay = 1;
+        int period = 12;
         timer.scheduleAtFixedRate(task, delay, period);
     }
 
+ //*/
+
+// Падение с платформы
+
+    /*
     public void fall(final Room room)
     {
         inFalling = true;
@@ -123,10 +170,11 @@ public class Player
         };
 
         Timer timer = new Timer();
-        int delay = 2;
-        int period = 32;
+        int delay = 1;
+        int period = 35;
         timer.scheduleAtFixedRate(task, delay, period);
     }
+*/
 
     public boolean onFloor(Room room)
     {

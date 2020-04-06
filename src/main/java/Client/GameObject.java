@@ -40,27 +40,9 @@ public class GameObject extends JPanel implements ActionListener
         //room = new Room(frame.getHeight() - 50, frame.getWidth() - 50);
         room = new Room(1080, 1920);
 
-        room.addObjects(new Platform(0, 850, 50, 100, Platform.Construction.FLOOR));
-        room.addObjects(new Platform(100, 850, 50, 100, Platform.Construction.FLOOR));
-        room.addObjects(new Platform(200, 850, 50, 100, Platform.Construction.FLOOR));
-        room.addObjects(new Platform(300, 850, 50, 100, Platform.Construction.FLOOR));
-
-        room.addObjects(new Platform(400, 600, 50, 100, Platform.Construction.FLOOR));
-        room.addObjects(new Platform(500, 600, 50, 100, Platform.Construction.FLOOR));
-        room.addObjects(new Platform(600, 600, 50, 100, Platform.Construction.FLOOR));
-        room.addObjects(new Platform(700, 600, 50, 100, Platform.Construction.FLOOR));
-
-        room.addObjects(new Platform(0, 1030, 50, 200, Platform.Construction.FLOOR));
-        room.addObjects(new Platform(200, 1030, 50, 200, Platform.Construction.FLOOR));
-        room.addObjects(new Platform(400, 1030, 50, 200, Platform.Construction.FLOOR));
-        room.addObjects(new Platform(600, 1030, 50, 200, Platform.Construction.FLOOR));
-        room.addObjects(new Platform(800, 1030, 50, 200, Platform.Construction.FLOOR));
-        room.addObjects(new Platform(1000, 1030, 50, 200, Platform.Construction.FLOOR));
-        room.addObjects(new Platform(1200, 1030, 50, 200, Platform.Construction.FLOOR));
-        room.addObjects(new Platform(1400, 1030, 50, 200, Platform.Construction.FLOOR));
-        room.addObjects(new Platform(1600, 1030, 50, 200, Platform.Construction.FLOOR));
-        room.addObjects(new Platform(1800, 1030, 50, 200, Platform.Construction.FLOOR));
-
+        room.addObjects(new Platform(0, 850, 50, 400, Platform.Construction.FLOOR));
+        room.addObjects(new Platform(400, 600, 50, 400, Platform.Construction.FLOOR));
+        room.addObjects(new Platform(0, 1030, 50, 1920, Platform.Construction.FLOOR));
 
         startPositionX = 0;
         startPositionY = 1030;
