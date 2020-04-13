@@ -42,6 +42,11 @@ public class GameObject extends JPanel implements ActionListener
 
         room.addObjects(new Platform(0, 850, 50, 400, Platform.Construction.FLOOR));
         room.addObjects(new Platform(400, 600, 50, 400, Platform.Construction.FLOOR));
+        room.addObjects(new Platform(800, 400, 50, 200, Platform.Construction.FLOOR));
+        room.addObjects(new Platform(0, 350, 50, 400, Platform.Construction.FLOOR));
+        room.addObjects(new Platform(1500, 520, 50, 100, Platform.Construction.FLOOR));
+        room.addObjects(new Platform(1700, 800, 50, 220, Platform.Construction.FLOOR));
+
         room.addObjects(new Platform(0, 1030, 50, 1920, Platform.Construction.FLOOR));
 
         startPositionX = 0;

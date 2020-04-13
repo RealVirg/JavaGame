@@ -57,37 +57,26 @@ public class Player
     }
 
 
-    /*
-    public void jump()
-    {
-        inJumping = true;
-        speedY = 25;
-        accelerationY = -1;
-
-
-    }
-     */
-
     public boolean inJumping = false;
     public boolean inFalling = false;
-
 // С ускорением
 
-    /*
     public void jump(final Room room)
     {
         inJumping = true;
-        speedY = 70;
-        accelerationY = -10;
+        speedY = 50;
+        accelerationY = -5;
         TimerTask task = new TimerTask() {
             @Override
             public void run()
             {
                 changeY(y- speedY);
+
                 speedY += accelerationY;
 
-                if (speedY < 0 && onFloor(room))
+                if (speedY <= 0 && onFloor(room))
                 {
+                    changeY(y);
                     speedY = 0;
                     accelerationY = 0;
                     inJumping = false;
@@ -101,12 +90,11 @@ public class Player
         int period = 35;
         timer.scheduleAtFixedRate(task, delay, period);
     }
-*/
+
 
 // Без ускорения
-    public int deltaY = 0;
 
-///*
+/*
     public void jump(final Room room)
     {
         inJumping = true;
@@ -137,12 +125,12 @@ public class Player
         };
 
         Timer timer = new Timer();
-        int delay = 1;
+        int delay = 3;
         int period = 12;
         timer.scheduleAtFixedRate(task, delay, period);
     }
 
- //*/
+ */
 
 // Падение с платформы
 
@@ -183,8 +171,11 @@ public class Player
 
         for (Platform e: room.platforms)
         {
-            if (y == e.y && x >= e.x && x <= e.x + e.width)
+            if (y <= e.y + 30 && y >= e.y - 30 && x >= e.x && x <= e.x + e.width)
+            {
+                //y = room.getPlatformUnderPlayer(this).y;
                 return true;
+            }
         }
 
        return false;
