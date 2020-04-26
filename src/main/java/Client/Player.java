@@ -122,28 +122,24 @@ public class Player
         timer.scheduleAtFixedRate(task, delay, period);
     }
 
-
     public boolean onFloor(Room room)
     {
         if (y >= room.height)
             return true;
 
-        for (Platform e: room.platforms)
+        if (room.getPlatformUnderPlayer(this) != null)
         {
-            if (y <= e.y + 30 && y >= e.y - 30 && x + 50 >= e.x && x <= e.x + e.width)
-            {
-                y = room.getPlatformUnderPlayer(this).y;
-                return true;
-            }
+            y = room.getPlatformUnderPlayer(this).y;
+            return true;
         }
 
         return false;
     }
 
-    public boolean outOfPlatform(Room room)
-    {
-        return room.getPlatformUnderPlayer(this) == null;
-    }
+//    public boolean outOfPlatform(Room room)
+//    {
+//        return room.getPlatformUnderPlayer(this) == null;
+//    }
 
     public boolean nearEdge(Room room, Direction dir)
     {
@@ -154,7 +150,8 @@ public class Player
 
     public void move(Room room)
     {
-        switch(playerDirection) {
+        switch(playerDirection)
+        {
             case UP:
                 if (isJumping || isFalling)
                     break;
@@ -166,16 +163,16 @@ public class Player
             case LEFT:
                 if (nearEdge(room, Direction.LEFT))
                     break;
-                if (outOfPlatform(room) && !isJumping)
-                    this.fall(room);
                 x-= speedX;
+                if (!onFloor(room) && !isJumping)
+                    this.fall(room);
                 break;
             case RIGHT:
                 if (nearEdge(room, Direction.RIGHT))
                     break;
-                if (outOfPlatform(room) && !isJumping)
-                    this.fall(room);
                 x+= speedX;
+                if (!onFloor(room) && !isJumping)
+                    this.fall(room);
                 break;
             default:
                 break;

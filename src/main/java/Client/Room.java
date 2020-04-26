@@ -23,10 +23,11 @@ public class Room
 
     public Platform getPlatformUnderPlayer(Player player)
     {
-        for (Platform p: platforms)
+        for (Platform plt: platforms)
         {
-            if (p.y + 30 >= player.getY() && p.y - 30 <= player.getY() && p.x <= player.getX() + 50 && p.x + p.width >= player.getX())
-                return p;
+            if (plt.y + 30 >= player.getY() && plt.y - 30 <= player.getY()
+                    && plt.x <= player.getX() + 50 && plt.x + plt.width >= player.getX())
+                return plt;
         }
 
         return null;
