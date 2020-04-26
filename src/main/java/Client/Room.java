@@ -21,11 +21,23 @@ public class Room
         width = W;
     }
 
-    public Platform getPlatformUnderPlayer(Player player)
+    public Platform getPlatformTouchedPlayer(Player player)
     {
         for (Platform plt: platforms)
         {
             if (plt.y + 30 >= player.getY() && plt.y - 30 <= player.getY()
+                    && plt.x <= player.getX() + 50 && plt.x + plt.width >= player.getX())
+                return plt;
+        }
+
+        return null;
+    }
+
+    public Platform getPlatformTouchedHead(Player player)
+    {
+        for (Platform plt: platforms)
+        {
+            if (plt.y + plt.height + 30 >= player.getY() - 50 && plt.y + plt.height - 30 <= player.getY() - 50
                     && plt.x <= player.getX() + 50 && plt.x + plt.width >= player.getX())
                 return plt;
         }

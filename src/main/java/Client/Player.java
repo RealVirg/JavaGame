@@ -71,13 +71,20 @@ public class Player
             @Override
             public void run()
             {
+                if (speedY < 0)
+                    playerDirection = Direction.DOWN;
+
+                if (speedY > 0 && touchedFloor(room))
+                {
+                    speedY = 0;
+                }
+
                 changeY(y- speedY);
 
                 speedY += accelerationY;
 
-                if (speedY <= 0 && onFloor(room))
+                if (speedY <= 0 && touchedFloor(room))
                 {
-                    changeY(y);
                     speedY = 0;
                     accelerationY = 0;
                     isJumping = false;
@@ -106,7 +113,7 @@ public class Player
 
                 changeY(y- speedY);
 
-                if (onFloor(room))
+                if (touchedFloor(room))
                 {
                     speedY = 0;
                     accelerationY = 0;
@@ -122,24 +129,28 @@ public class Player
         timer.scheduleAtFixedRate(task, delay, period);
     }
 
-    public boolean onFloor(Room room)
+    public boolean touchedFloor(Room room)
     {
         if (y >= room.height)
-            return true;
-
-        if (room.getPlatformUnderPlayer(this) != null)
         {
-            y = room.getPlatformUnderPlayer(this).y;
+            y = room.height + 50;
+            return true;
+        }
+
+        if (speedY > 0 && room.getPlatformTouchedHead(this) != null)
+        {
+            y = room.getPlatformTouchedHead(this).y + room.getPlatformTouchedHead(this).height + 50;
+            return  true;
+        }
+
+        if (speedY <= 0 && room.getPlatformTouchedPlayer(this) != null)
+        {
+            y = room.getPlatformTouchedPlayer(this).y;
             return true;
         }
 
         return false;
     }
-
-//    public boolean outOfPlatform(Room room)
-//    {
-//        return room.getPlatformUnderPlayer(this) == null;
-//    }
 
     public boolean nearEdge(Room room, Direction dir)
     {
@@ -164,14 +175,14 @@ public class Player
                 if (nearEdge(room, Direction.LEFT))
                     break;
                 x-= speedX;
-                if (!onFloor(room) && !isJumping)
+                if (!touchedFloor(room) && !isJumping)
                     this.fall(room);
                 break;
             case RIGHT:
                 if (nearEdge(room, Direction.RIGHT))
                     break;
                 x+= speedX;
-                if (!onFloor(room) && !isJumping)
+                if (!touchedFloor(room) && !isJumping)
                     this.fall(room);
                 break;
             default:
