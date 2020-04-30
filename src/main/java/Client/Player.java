@@ -56,11 +56,8 @@ public class Player
         return speedY;
     }
 
-
     public boolean isJumping = false;
     public boolean isFalling = false;
-
-// С ускорением
 
     public void jump(final Room room)
     {
