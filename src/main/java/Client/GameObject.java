@@ -23,6 +23,7 @@ public class GameObject extends JPanel implements ActionListener
     Image imgPlayer2 = new ImageIcon("sprites/player2.jpg").getImage();
     Image imgBackground = new ImageIcon("sprites/background.jpg").getImage();
     Image imgFloor = new ImageIcon("sprites/floor.jpg").getImage();
+    Image imgButton = new ImageIcon("sprites/button.jpg").getImage();
 
     Timer timer = new Timer(1, this);
 
@@ -40,20 +41,22 @@ public class GameObject extends JPanel implements ActionListener
         //room = new Room(frame.getHeight() - 50, frame.getWidth() - 50);
         room = new Room(1080, 1920);
 
-        room.addObjects(new Platform(0, 850, 50, 400, Platform.Construction.FLOOR));
-        room.addObjects(new Platform(400, 650, 50, 400, Platform.Construction.FLOOR));
-        room.addObjects(new Platform(800, 450, 50, 200, Platform.Construction.FLOOR));
-        room.addObjects(new Platform(0, 400, 50, 400, Platform.Construction.FLOOR));
-        room.addObjects(new Platform(1500, 650, 50, 100, Platform.Construction.FLOOR));
-        room.addObjects(new Platform(1700, 850, 50, 220, Platform.Construction.FLOOR));
+        room.addObjects(new Platform(0, 850, 50, 400, Construction.FLOOR));
+        room.addObjects(new Platform(400, 650, 50, 400, Construction.FLOOR));
+        room.addObjects(new Platform(800, 450, 50, 200, Construction.FLOOR));
+        room.addObjects(new Platform(0, 400, 50, 400, Construction.FLOOR));
+        room.addObjects(new Platform(1500, 650, 50, 100, Construction.FLOOR));
+        room.addObjects(new Platform(1700, 850, 50, 220, Construction.FLOOR));
 
-        room.addObjects(new Platform(0, 1030, 50, 1920, Platform.Construction.FLOOR));
+        room.addObjects(new Button(450, 650, 1, 50));
+
+        room.addObjects(new Platform(0, 1030, 50, 1920, Construction.FLOOR));
 
         startPositionX = 0;
         startPositionY = 1030;
 
-        player1 = new Player(startPositionX, startPositionY, 20);
-        player2 = new Player(startPositionX, startPositionY, 20);
+        player1 = new Player(startPositionX, startPositionY, 20, 50);
+        player2 = new Player(startPositionX, startPositionY, 20, 50);
         Frame.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -74,8 +77,12 @@ public class GameObject extends JPanel implements ActionListener
             {
                 g.drawImage(imgFloor, e.x, e.y, e.width, e.height, null);
             }
-            g.drawImage(imgPlayer1, player1.getX(), player1.getY() - 50, 50, 50, null);
-            g.drawImage(imgPlayer2, player2.getX(), player2.getY() - 50, 50, 50, null);
+            for (Button e: room.buttons)
+            {
+                g.drawImage(imgButton, e.x, e.y - 50, 50, 50, null);
+            }
+            g.drawImage(imgPlayer1, player1.getX(), player1.getY() - player1.size, player1.size, player1.size, null);
+            g.drawImage(imgPlayer2, player2.getX(), player2.getY() - player2.size, player2.size, player2.size, null);
         }
     }
 

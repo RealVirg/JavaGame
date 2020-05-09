@@ -8,13 +8,6 @@ public class Platform
     public int height;
     public int width;
 
-    enum Construction
-    {
-        FLOOR,
-        WALL,
-        NONE
-    }
-
     Construction construction = Construction.NONE;
 
     public Platform(int X, int Y, int H, int W, Construction type)
