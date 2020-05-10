@@ -9,8 +9,7 @@ public class Client
 {
     final static int ServerPort = 1234;
 
-    public static void main(String args[]) throws UnknownHostException, IOException
-    {
+    public static void main(String args[]) throws UnknownHostException, IOException, InterruptedException {
         JFrame frame = new JFrame("JustGame");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -85,6 +84,7 @@ public class Client
         boolean run = true;
         while (run)
         {
+            Thread.sleep(1);
             if (connection[0] && !connection[1])
             {
                 gameObject.player1.changeX(0);

@@ -27,11 +27,10 @@ public class GameObject extends JPanel implements ActionListener
 
     Timer timer = new Timer(1, this);
 
-    Player player1;
-    Player player2;
-
     boolean in_playing = false;
 
+    Player player1;
+    Player player2;
     public Room room;
 
     public GameObject(JFrame Frame) {
@@ -49,6 +48,7 @@ public class GameObject extends JPanel implements ActionListener
         room.addObjects(new Platform(1700, 850, 50, 220, Construction.FLOOR));
 
         room.addObjects(new Button(450, 650, 1, 50));
+        room.addObjects(new Button(650, 650, 2, 50));
 
         room.addObjects(new Platform(0, 1030, 50, 1920, Construction.FLOOR));
 
@@ -67,6 +67,11 @@ public class GameObject extends JPanel implements ActionListener
                 player1.keyReleased(e);
             }
         });
+    }
+
+    public void refresh()
+    {
+
     }
 
     public void paint(Graphics g)

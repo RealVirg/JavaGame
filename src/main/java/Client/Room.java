@@ -31,12 +31,11 @@ public class Room
     {
         for (Button b: buttons)
         {
-            if (b.isPressed && ((b.x > player.getX() + player.size || b.x + b.size < player.getX())
-                    //&& b.y >= player.getY()  && b.y - 10 <= player.getY()
-            ))
+            if (b.isPressed && (b.x >= player.getX() + player.size || b.x + b.size <= player.getX() || b.y - b.size > player.getY()))
             {
                     b.isPressed = false;
                     b.y = b.y - 40;
+                    //break;
             }
         }
     }
@@ -45,13 +44,12 @@ public class Room
     {
         for (Button b: buttons)
         {
-            if (!b.isPressed && (b.x <= player.getX() + player.size && b.x + b.size >= player.getX() &&
-                b.y >= player.getY() && b.y - 10 <= player.getY()))
+            if (!b.isPressed && (b.x <= player.getX() + player.size && b.x + b.size >= player.getX()
+                    && b.y >= player.getY() && b.y - 10 <= player.getY()))
             {
                 b.isPressed = true;
                 return b.id;
             }
-
         }
 
         return 0;
