@@ -16,9 +16,6 @@ public class GameObject extends JPanel implements ActionListener
 {
     JFrame frame;
 
-    private static int startPositionX;
-    private static int startPositionY;
-
     Image imgPlayer1 = new ImageIcon("sprites/player1.jpg").getImage();
     Image imgPlayer2 = new ImageIcon("sprites/player2.jpg").getImage();
     Image imgBackground = new ImageIcon("sprites/background.jpg").getImage();
@@ -28,15 +25,17 @@ public class GameObject extends JPanel implements ActionListener
     Timer timer = new Timer(1, this);
 
     boolean in_playing = false;
+    int currentLvl = 0;
 
+    Room room;
     Player player1;
     Player player2;
-    public Room room;
 
-    public GameObject(JFrame Frame) {
+    public GameObject(JFrame Frame)
+    {
         timer.start();
         this.frame = Frame;
-
+/*
         //room = new Room(frame.getHeight() - 50, frame.getWidth() - 50);
         room = new Room(1080, 1920);
 
@@ -46,17 +45,28 @@ public class GameObject extends JPanel implements ActionListener
         room.addObjects(new Platform(0, 400, 50, 400, Construction.FLOOR));
         room.addObjects(new Platform(1500, 650, 50, 100, Construction.FLOOR));
         room.addObjects(new Platform(1700, 850, 50, 220, Construction.FLOOR));
+        room.addObjects(new Platform(1000, 850, 50, 250, Construction.FLOOR));
+        room.addObjects(new Platform(0, 1030, 50, 1920, Construction.FLOOR));
+
+        room.addObjects(new Platform(1000, 900, 130, 50, Construction.WALL));
+        room.addObjects(new Platform(1200, 900, 130, 50, Construction.WALL));
 
         room.addObjects(new Button(450, 650, 1, 50));
         room.addObjects(new Button(650, 650, 2, 50));
-
-        room.addObjects(new Platform(0, 1030, 50, 1920, Construction.FLOOR));
 
         startPositionX = 0;
         startPositionY = 1030;
 
         player1 = new Player(startPositionX, startPositionY, 20, 50);
         player2 = new Player(startPositionX, startPositionY, 20, 50);
+ */
+        Levels.createLevel1();
+        Levels.createLevel2();
+
+        room = Levels.levels.get(currentLvl);
+        player1 =  Levels.levels.get(currentLvl).players.get(0);
+        player2  = Levels.levels.get(currentLvl).players.get(1);
+
         Frame.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -69,16 +79,15 @@ public class GameObject extends JPanel implements ActionListener
         });
     }
 
-    public void refresh()
-    {
-
-    }
-
     public void paint(Graphics g)
     {
         g.drawImage(imgBackground, 0, 0,frame.getWidth(), frame.getHeight(), null);
         if (in_playing) {
-            for (Platform e: room.platforms)
+            for (Platform e: room.floors)
+            {
+                g.drawImage(imgFloor, e.x, e.y, e.width, e.height, null);
+            }
+            for (Platform e: room.walls)
             {
                 g.drawImage(imgFloor, e.x, e.y, e.width, e.height, null);
             }
@@ -96,6 +105,10 @@ public class GameObject extends JPanel implements ActionListener
         // TODO Auto-generated method stub
         repaint();
         player1.move(room);
+        room.checkAllButtons(player1);
+        room.checkAllButtons(player2);
+        room.steppedButtonNumber(player1);
+        room.steppedButtonNumber(player2);
     }
 
 }

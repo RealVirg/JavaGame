@@ -81,7 +81,6 @@ public class Player
                 changeY(y- speedY);
 
                 speedY += accelerationY;
-                checkButton(room);
 
                 if (speedY <= 0 && touchedFloor(room))
                 {
@@ -112,7 +111,6 @@ public class Player
                 speedY += accelerationY;
 
                 changeY(y- speedY);
-                checkButton(room);
 
                 if (touchedFloor(room))
                 {
@@ -153,33 +151,36 @@ public class Player
         return false;
     }
 
-    public boolean wallInFront(Direction dir, int wallCoordinatesXleft, int wallCoordinatesXright)
+    public boolean wallInFront(Room room, Direction dir)
     {
-        if (dir == Direction.LEFT && x <= wallCoordinatesXright)
+        for (Platform w: room.walls)
         {
+            if (dir == Direction.LEFT && x <= w.x + w.width && x + size >= w.x + w.width &&
+                    (y <= w.y + w.height && y >= w.y))
+            {
+                x = w.x + w.width;
+                return true;
+            }
+            else if (dir == Direction.RIGHT && x + size >= w.x && x <= w.x &&
+                    (y <= w.y + w.height && y >= w.y))
+            {
+                x = w.x - size;
+                return true;
+            }
+        }
+
+        if (dir == Direction.LEFT && x <= 0)
+        {
+            x = 0;
             return true;
         }
-        else
+        else if (dir == Direction.RIGHT && x + size >= room.width)
         {
-            return dir == Direction.RIGHT && x + size >= wallCoordinatesXleft;
-        }
-    }
-
-    public void checkButton(Room room)
-    {
-        int steppedButtonID = room.steppedButtonNumber(this);
-
-        if (steppedButtonID == 0)
-        {
-            room.checkAllButtons(this);
-            return;
+            x = room.width - size;
+            return true;
         }
 
-        for (Button b: room.buttons)
-        {
-            if (b.id == steppedButtonID)
-                b.y = b.y + 40;
-        }
+        return false;
     }
 
     public void move(Room room)
@@ -192,17 +193,15 @@ public class Player
                 this.jump(room);
                 break;
             case LEFT:
-                if (wallInFront(Direction.LEFT, 0, 0))
+                if (wallInFront(room, Direction.LEFT))
                     break;
-                checkButton(room);
                 x-= speedX;
                 if (!touchedFloor(room) && !isJumping)
                     this.fall(room);
                 break;
             case RIGHT:
-                if (wallInFront(Direction.RIGHT, room.width, room.width))
+                if (wallInFront(room, Direction.RIGHT))
                     break;
-                checkButton(room);                              //-----------------------------
                 x+= speedX;
                 if (!touchedFloor(room) && !isJumping)
                     this.fall(room);

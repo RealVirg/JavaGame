@@ -88,9 +88,9 @@ public class Client
             if (connection[0] && !connection[1])
             {
                 gameObject.player1.changeX(0);
-                gameObject.player1.changeY(frame.getHeight() - 100);
+                gameObject.player1.changeY(0);
                 gameObject.player2.changeX(0);
-                gameObject.player2.changeY(frame.getHeight() - 100);
+                gameObject.player2.changeY(0);
                 gameObject.in_playing = true;
                 connection[1] = true;
             }

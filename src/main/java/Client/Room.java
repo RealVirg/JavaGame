@@ -7,22 +7,42 @@ public class Room
     public int height;
     public int width;
 
-    public ArrayList<Platform> platforms;
+    public ArrayList<Platform> floors;
     public ArrayList<Button> buttons;
+    public ArrayList<Platform> walls;
+
+    public int lvlNumber = 1;
+    public int finishX = 1000;
+    public int finishY = 1000;
+    public ArrayList<Player> players;
 
     public void addObjects(Object obj)
     {
         if (obj.getClass() == Platform.class)
-            platforms.add((Platform)obj);
+        {
+            Platform tmp = (Platform)obj;
+            if (tmp.construction == Construction.FLOOR)
+                floors.add(tmp);
+            else if (tmp.construction == Construction.WALL)
+                walls.add(tmp);
+        }
         else if (obj.getClass() == Button.class)
             buttons.add((Button)obj);
-
     }
 
     public Room(int H, int W)
     {
+        int startPositionX = 0;
+        int startPositionY = 1030;
+
         buttons = new ArrayList<Button>();
-        platforms = new ArrayList<Platform>();
+        floors = new ArrayList<Platform>();
+        walls = new ArrayList<Platform>();
+
+        players = new ArrayList<Player>();
+        players.add(new Player(startPositionX, startPositionY, 20, 50));
+        players.add(new Player(startPositionX, startPositionY, 20, 50));
+
         height = H;
         width = W;
     }
@@ -35,12 +55,11 @@ public class Room
             {
                     b.isPressed = false;
                     b.y = b.y - 40;
-                    //break;
             }
         }
     }
 
-    public int steppedButtonNumber(Player player)
+    public void steppedButtonNumber(Player player)
     {
         for (Button b: buttons)
         {
@@ -48,19 +67,17 @@ public class Room
                     && b.y >= player.getY() && b.y - 10 <= player.getY()))
             {
                 b.isPressed = true;
-                return b.id;
+                b.y = b.y + 40;
             }
         }
-
-        return 0;
     }
 
     public Platform getPlatformTouchedByPlayer(Player player)
     {
-        for (Platform plt: platforms)
+        for (Platform plt: floors)
         {
             if (plt.y + 30 >= player.getY() && plt.y - 30 <= player.getY()
-                    && plt.x <= player.getX() + player.size && plt.x + plt.width >= player.getX())
+                    && plt.x < player.getX() + player.size && plt.x + plt.width > player.getX())
                 return plt;
         }
 
@@ -69,10 +86,10 @@ public class Room
 
     public Platform getPlatformTouchedWithHead(Player player)
     {
-        for (Platform plt: platforms)
+        for (Platform plt: floors)
         {
             if (plt.y + plt.height + 30 >= player.getY() - player.size && plt.y + plt.height - 30 <= player.getY() - player.size
-                    && plt.x <= player.getX() + player.size && plt.x + plt.width >= player.getX())
+                    && plt.x < player.getX() + player.size && plt.x + plt.width > player.getX())
                 return plt;
         }
 
