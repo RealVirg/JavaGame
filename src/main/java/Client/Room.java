@@ -11,9 +11,9 @@ public class Room
     public ArrayList<Button> buttons;
     public ArrayList<Platform> walls;
 
-    public int lvlNumber = 1;
-    public int finishX = 1000;
-    public int finishY = 1000;
+    public int lvlNumber;
+    public int roomFinishX = 1895;
+    public int roomFinishY = 850;
     public ArrayList<Player> players;
 
     public void addObjects(Object obj)
@@ -45,6 +45,13 @@ public class Room
 
         height = H;
         width = W;
+    }
+
+    public boolean reachedFinish(Player player)
+    {
+        if (roomFinishX > player.getX() && roomFinishX < player.getX() + player.size && roomFinishY == player.getY())
+            return true;
+        return false;
     }
 
     public void checkAllButtons(Player player)

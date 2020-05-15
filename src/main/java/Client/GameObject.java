@@ -63,9 +63,7 @@ public class GameObject extends JPanel implements ActionListener
         Levels.createLevel1();
         Levels.createLevel2();
 
-        room = Levels.levels.get(currentLvl);
-        player1 =  Levels.levels.get(currentLvl).players.get(0);
-        player2  = Levels.levels.get(currentLvl).players.get(1);
+        loadLevel(currentLvl);
 
         Frame.addKeyListener(new KeyAdapter() {
             @Override
@@ -77,6 +75,13 @@ public class GameObject extends JPanel implements ActionListener
                 player1.keyReleased(e);
             }
         });
+    }
+
+    public void loadLevel(int levelNumber)
+    {
+        room = Levels.levels.get(levelNumber);
+        player1 =  Levels.levels.get(levelNumber).players.get(0);
+        player2  = Levels.levels.get(levelNumber).players.get(1);
     }
 
     public void paint(Graphics g)
@@ -105,6 +110,11 @@ public class GameObject extends JPanel implements ActionListener
         // TODO Auto-generated method stub
         repaint();
         player1.move(room);
+        if (room.reachedFinish(player1) && room.reachedFinish(player1))
+        {
+            currentLvl++;
+            loadLevel(currentLvl);
+        }
         room.checkAllButtons(player1);
         room.checkAllButtons(player2);
         room.steppedButtonNumber(player1);
