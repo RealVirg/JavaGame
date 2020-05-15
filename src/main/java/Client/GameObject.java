@@ -110,10 +110,15 @@ public class GameObject extends JPanel implements ActionListener
         // TODO Auto-generated method stub
         repaint();
         player1.move(room);
-        if (room.reachedFinish(player1) && room.reachedFinish(player2))
+        if (changeLevel)
         {
             currentLvl++;
             loadLevel(currentLvl);
+            changeLevel = false;
+        }
+        else if (room.reachedFinish(player1) && room.reachedFinish(player2))
+        {
+            changeLevel = true;
         }
         room.checkAllButtons(player1);
         room.checkAllButtons(player2);
