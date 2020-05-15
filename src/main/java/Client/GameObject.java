@@ -30,6 +30,7 @@ public class GameObject extends JPanel implements ActionListener
     Room room;
     Player player1;
     Player player2;
+    boolean changeLevel = false;
 
     public GameObject(JFrame Frame)
     {
