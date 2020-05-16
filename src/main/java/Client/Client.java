@@ -14,7 +14,7 @@ public class Client
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setUndecorated(false);
-        GameObject gameObject = new GameObject(frame);
+        final GameObject gameObject = new GameObject(frame);
         frame.add(gameObject);
         frame.setVisible(true);
         final boolean[] connection = {false, false};
@@ -31,6 +31,8 @@ public class Client
 
         final DataInputStream inputStream = new DataInputStream(socket.getInputStream());
         final DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
+
+        final String[] playerSpell = {"nothing"};
 
 //        Thread sendMessage = new Thread(new Runnable()
 //        {
@@ -61,10 +63,12 @@ public class Client
                         {
                             mate[0] = "client 0";
                             connection[0] = true;
+                            playerSpell[0] = "second_spell";
                         }
                         else if (msg.equals("Connection complete. Your mate is client 1")) {
                             mate[0] = "client 1";
                             connection[0] = true;
+                            playerSpell[0] = "first_spell";
                         }
                         else
                         {
@@ -85,6 +89,10 @@ public class Client
         while (run)
         {
             Thread.sleep(1);
+            if (gameObject.player1.getSpell() == "nothing")
+            {
+                gameObject.player1.makeSpell(playerSpell[0]);
+            }
             if (connection[0] && !connection[1])
             {
                 gameObject.player1.changeX(0);
@@ -94,7 +102,7 @@ public class Client
                 gameObject.in_playing = true;
                 connection[1] = true;
             }
-            System.out.println(mate[1]);
+            // System.out.println(mate[1]);
             String currentMessage = mate[1];
             if (currentMessage.length() != 0 && !mate[0].equals("nothing"))
             {
@@ -108,7 +116,7 @@ public class Client
 
             if (!mate[0].equals("nothing"))
             {
-                outputStream.writeUTF(gameObject.player1.getX() + " " + gameObject.player1.getY() + "#" + mate[0]);
+                outputStream.writeUTF(gameObject.player1.getX() + " " + gameObject.player1.getY() + " 0" +  "#" + mate[0]);
             }
         }
     }

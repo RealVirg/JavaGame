@@ -24,6 +24,19 @@ public class Player
 
     Direction playerDirection = Direction.NONE;
 
+    private String spell = "nothing";
+
+    public void makeSpell(String nameSpell)
+    {
+        spell = nameSpell;
+    }
+
+
+    public String getSpell()
+    {
+        return spell;
+    }
+
     public Player(int X, int Y, int speedX, int Size)
     {
         this.size = Size;
@@ -64,8 +77,8 @@ public class Player
     public void jump(final Room room)
     {
         isJumping = true;
-        speedY = 50;
-        accelerationY = -5;
+        speedY = 40;
+        accelerationY = -4;
         TimerTask task = new TimerTask() {
             @Override
             public void run()
@@ -94,7 +107,7 @@ public class Player
 
         Timer timer = new Timer();
         int delay = 1;
-        int period = 35;
+        int period = 40;
         timer.scheduleAtFixedRate(task, delay, period);
     }
 
