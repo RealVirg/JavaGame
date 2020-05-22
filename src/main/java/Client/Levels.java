@@ -10,18 +10,18 @@ public class Levels
     {
         Room lvl = new Room(1080, 1920);
 
-        lvl.addObjects(new Platform(0, 850, 50, 400, Construction.FLOOR));
-        lvl.addObjects(new Platform(400, 650, 50, 400, Construction.FLOOR));
-        lvl.addObjects(new Platform(800, 450, 50, 200, Construction.FLOOR));
-        lvl.addObjects(new Platform(0, 400, 50, 400, Construction.FLOOR));
-        lvl.addObjects(new Platform(1500, 650, 50, 100, Construction.FLOOR));
-        lvl.addObjects(new Platform(1700, 850, 50, 220, Construction.FLOOR));
-        lvl.addObjects(new Platform(1000, 850, 50, 250, Construction.FLOOR));
+        lvl.addObjects(new Platform(0, 850, 50, 400, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(400, 650, 50, 400, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(800, 450, 50, 200, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(0, 400, 50, 400, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(1500, 650, 50, 100, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(1700, 850, 50, 220, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(1000, 850, 50, 250, Construction.FLOOR, 0));
 
-        lvl.addObjects(new Platform(0, 1030, 50, 1920, Construction.FLOOR));
+        lvl.addObjects(new Platform(0, 1030, 50, 1920, Construction.FLOOR, 0));
 
-        lvl.addObjects(new Platform(1000, 900, 130, 50, Construction.WALL));
-        lvl.addObjects(new Platform(1200, 900, 130, 50, Construction.WALL));
+        lvl.addObjects(new Platform(1000, 900, 130, 50, Construction.WALL, 1));
+        lvl.addObjects(new Platform(1200, 900, 130, 50, Construction.WALL, 2));
 
         lvl.addObjects(new Button(450, 650, 1, 50));
         lvl.addObjects(new Button(650, 650, 2, 50));
@@ -35,15 +35,15 @@ public class Levels
     {
         Room lvl = new Room(1080, 1920);
 
-        lvl.addObjects(new Platform(0, 850, 50, 400, Construction.FLOOR));
-        lvl.addObjects(new Platform(400, 650, 50, 400, Construction.FLOOR));
-        lvl.addObjects(new Platform(800, 450, 50, 200, Construction.FLOOR));
-        lvl.addObjects(new Platform(0, 400, 50, 400, Construction.FLOOR));
-        lvl.addObjects(new Platform(1500, 650, 50, 100, Construction.FLOOR));
-        lvl.addObjects(new Platform(1700, 850, 50, 220, Construction.FLOOR));
-        lvl.addObjects(new Platform(1000, 850, 50, 250, Construction.FLOOR));
+        lvl.addObjects(new Platform(0, 850, 50, 400, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(400, 650, 50, 400, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(800, 450, 50, 200, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(0, 400, 50, 400, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(1500, 650, 50, 100, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(1700, 850, 50, 220, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(1000, 850, 50, 250, Construction.FLOOR, 0));
 
-        lvl.addObjects(new Platform(0, 1030, 50, 1920, Construction.FLOOR));
+        lvl.addObjects(new Platform(0, 1030, 50, 1920, Construction.FLOOR, 0));
 
         //lvl.addObjects(new Platform(1000, 900, 130, 50, Construction.WALL));
         //lvl.addObjects(new Platform(1200, 900, 130, 50, Construction.WALL));

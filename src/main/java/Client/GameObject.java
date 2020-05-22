@@ -121,10 +121,10 @@ public class GameObject extends JPanel implements ActionListener
         {
             changeLevel = true;
         }
-        room.checkAllButtons(player1);
-        room.checkAllButtons(player2);
-        room.steppedButtonNumber(player1);
-        room.steppedButtonNumber(player2);
+        room.buttonWasUnpressed(player1);
+        room.buttonWasUnpressed(player2);
+        room.buttonWasPressed(player1);
+        room.buttonWasPressed(player2);
     }
 
 }

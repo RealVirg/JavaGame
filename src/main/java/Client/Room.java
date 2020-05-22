@@ -54,7 +54,7 @@ public class Room
         return false;
     }
 
-    public void checkAllButtons(Player player)
+    public void buttonWasUnpressed(Player player)
     {
         for (Button b: buttons)
         {
@@ -62,11 +62,16 @@ public class Room
             {
                     b.isPressed = false;
                     b.y = b.y - 40;
+                    for (Platform w: walls)
+                    {
+                        if (b.id == w.ID)
+                            w.closeTheDoor();
+                    }
             }
         }
     }
 
-    public void steppedButtonNumber(Player player)
+    public void buttonWasPressed(Player player)
     {
         for (Button b: buttons)
         {
@@ -75,6 +80,11 @@ public class Room
             {
                 b.isPressed = true;
                 b.y = b.y + 40;
+                for (Platform w: walls)
+                {
+                    if (b.id == w.ID)
+                        w.openTheDoor();
+                }
             }
         }
     }
