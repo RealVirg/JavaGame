@@ -166,18 +166,18 @@ public class Player
 
     public boolean wallInFront(Room room, Direction dir)
     {
-        for (Platform w: room.walls)
+        for (Platform wall: room.walls)
         {
-            if (dir == Direction.LEFT && x <= w.x + w.width && x + size >= w.x + w.width &&
-                    (y <= w.y + w.height && y >= w.y))
+            if (dir == Direction.LEFT && x <= wall.x + wall.width && x + size >= wall.x + wall.width &&
+                    (y <= wall.y + wall.height && y >= wall.y))
             {
-                x = w.x + w.width;
+                x = wall.x + wall.width;
                 return true;
             }
-            else if (dir == Direction.RIGHT && x + size >= w.x && x <= w.x &&
-                    (y <= w.y + w.height && y >= w.y))
+            else if (dir == Direction.RIGHT && x + size >= wall.x && x <= wall.x &&
+                    (y <= wall.y + wall.height && y >= wall.y))
             {
-                x = w.x - size;
+                x = wall.x - size;
                 return true;
             }
         }

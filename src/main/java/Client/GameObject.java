@@ -102,7 +102,7 @@ public class GameObject extends JPanel implements ActionListener
             {
                 g.drawImage(imgButton, e.x, e.y - 50, 50, 50, null);
             }
-            g.drawImage(imgCube, room.cube.getX(), room.cube.getY() - room.cube.size, room.cube.size, room.cube.size, null);
+            g.drawImage(imgCube, (int)Math.round(room.cube.getX()), (int)Math.round(room.cube.getY()) - room.cube.size, room.cube.size, room.cube.size, null);
             g.drawImage(imgPlayer1, player1.getX(), player1.getY() - player1.size, player1.size, player1.size, null);
             g.drawImage(imgPlayer2, player2.getX(), player2.getY() - player2.size, player2.size, player2.size, null);
         }
@@ -121,10 +121,13 @@ public class GameObject extends JPanel implements ActionListener
         }
         else if (room.reachedFinish(player1) || room.reachedFinish(player2))
         {
-            room.cube.checkStatus(room);
+            room.cube.force(-1, true, room);
 
             //changeLevel = true;
         }
+        room.cube.checkStatus(room);
+        room.cube.force(-1, false, room);
+
         room.buttonWasUnpressed(player1);
         room.buttonWasUnpressed(player2);
         room.buttonWasPressed(player1);

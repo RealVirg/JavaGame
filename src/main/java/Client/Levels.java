@@ -19,13 +19,14 @@ public class Levels
         lvl.addObjects(new Platform(1000, 850, 50, 250, Construction.FLOOR, 0));
 
         lvl.addObjects(new Platform(0, 1030, 50, 1920, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(0, 0, 50, 1920, Construction.FLOOR, 0));
 
         lvl.addObjects(new Platform(1000, 900, 130, 50, Construction.WALL, 1));
         lvl.addObjects(new Platform(1200, 900, 130, 50, Construction.WALL, 2));
 
         lvl.addObjects(new Button(450, 650, 1, 50));
         lvl.addObjects(new Button(650, 650, 2, 50));
-        lvl.addObjects(new Cube(1300, 100));
+        lvl.addObjects(new Cube(1300, 700));
 
         lvl.lvlNumber = 1;
 
@@ -45,6 +46,7 @@ public class Levels
         lvl.addObjects(new Platform(1000, 850, 50, 250, Construction.FLOOR, 0));
 
         lvl.addObjects(new Platform(0, 1030, 50, 1920, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(0, 0, 50, 1920, Construction.FLOOR, 0));
 
         //lvl.addObjects(new Platform(1000, 900, 130, 50, Construction.WALL));
         //lvl.addObjects(new Platform(1200, 900, 130, 50, Construction.WALL));
