@@ -1,5 +1,7 @@
 package Client;
 
+import java.awt.event.KeyEvent;
+
 public class Cube
 {
     public double x;
@@ -8,6 +10,7 @@ public class Cube
     public double speedY = 0;
     public double accelerationY = 0;
     public int size;
+    public boolean changedGravity = false;
 
     public boolean inForce = false;
     public Direction direction = Direction.NONE;
@@ -40,15 +43,24 @@ public class Cube
 
     public boolean isFalling = false;
 
+    public void changeGravity()
+    {
+        changedGravity = !changedGravity;
+        speedY = 0;
+    }
+
     public void fall(final Room room)
     {
         isFalling = true;
-        accelerationY = -0.01;
+        if (!changedGravity)
+            accelerationY = -0.01;
+        else
+            accelerationY = 0.01;
         if (!touchedFloor(room))
         {
             speedY += accelerationY;
 
-            changeY(y- speedY);
+            changeY(y - speedY);
         }
         else
         {
@@ -90,25 +102,36 @@ public class Cube
 
     public boolean touchedFloor(Room room)
     {
-        if (y >= room.height)
-        {
-            y = room.height + 60;
+        if (y >= room.height) {
+            y = room.height + size;
             return true;
         }
-
-        if (speedY > 0 && room.getPlatformTouchedWithHeadCube(this) != null)
-        {
-            y = room.getPlatformTouchedWithHeadCube(this).y + room.getPlatformTouchedWithHeadCube(this).height + 60;
-            return  true;
+        if (changedGravity) {
+            if (room.getPlatformTouchedWithHeadCube(this) != null) {
+                y = room.getPlatformTouchedWithHeadCube(this).y + room.getPlatformTouchedWithHeadCube(this).height + size;
+                return true;
+            }
         }
-
-        if (speedY <= 0 && room.getPlatformTouchedByCube(this) != null)
-        {
-            y = room.getPlatformTouchedByCube(this).y;
-            return true;
+        else {
+            if (room.getPlatformTouchedByCube(this) != null) {
+                y = room.getPlatformTouchedByCube(this).y;
+                return true;
+            }
         }
 
         return false;
+    }
+
+    public void keyPressed(KeyEvent e)
+    {
+        System.out.println(e.getKeyCode());
+        int key = e.getKeyCode();
+
+        if (key == KeyEvent.VK_E)
+        {
+            changeGravity();
+        }
+
     }
 
     public void force(Direction dir, boolean usingForceSpell, Room room)
@@ -182,4 +205,8 @@ public class Cube
             fall(room);
     }
 
+    public void keyReleased(KeyEvent e)
+    {
+
+    }
 }

@@ -69,12 +69,15 @@ public class GameObject extends JPanel implements ActionListener
 
         Frame.addKeyListener(new KeyAdapter() {
             @Override
-            public void keyPressed(KeyEvent e) {
+            public void keyPressed(KeyEvent e)
+            {
                 player1.keyPressed(e);
+                room.cube.keyPressed(e);
             }
             @Override
             public void keyReleased(KeyEvent e) {
                 player1.keyReleased(e);
+                room.cube.keyReleased(e);
             }
         });
     }

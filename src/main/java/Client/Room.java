@@ -86,7 +86,10 @@ public class Room
                 for (Platform w: walls)
                 {
                     if (b.id == w.ID)
+                    {
                         w.openTheDoor();
+                        //cube.force(Direction.LEFT, true, this);
+                    }
                 }
             }
         }

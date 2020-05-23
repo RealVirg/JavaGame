@@ -193,7 +193,19 @@ public class Player
             return true;
         }
 
-        //if (dir == Direction.LEFT && y == room.cube.getY() && x <= room.cube.getX() && x + size >= room.cube.getX())
+        if (dir == Direction.LEFT && y == room.cube.getY() &&
+                x <= room.cube.getX() + room.cube.size && room.cube.getX() + room.cube.size <= x + size)
+        {
+            changeX((int)room.cube.getX() + room.cube.size);
+            return true;
+        }
+
+        if (dir == Direction.RIGHT && y == room.cube.getY() &&
+                x + size >= room.cube.getX() && room.cube.getX() >= x)
+        {
+            changeX((int)room.cube.getX() - size);
+            return true;
+        }
 
         return false;
     }
