@@ -10,6 +10,7 @@ public class Room
     public ArrayList<Platform> floors;
     public ArrayList<Button> buttons;
     public ArrayList<Platform> walls;
+    public Cube cube;
 
     public int lvlNumber;
     public int roomFinishX = 1895;
@@ -28,6 +29,8 @@ public class Room
         }
         else if (obj.getClass() == Button.class)
             buttons.add((Button)obj);
+        else if (obj.getClass() == Cube.class)
+            cube = (Cube)obj;
     }
 
     public Room(int H, int W)
@@ -112,4 +115,34 @@ public class Room
 
         return null;
     }
+
+
+
+    // Cube methods
+
+    public Platform getPlatformTouchedByCube(Cube cube)
+    {
+        for (Platform plt: floors)
+        {
+            if (plt.y + 30 >= cube.getY() && plt.y - 30 <= cube.getY()
+                    && plt.x < cube.getX() + cube.size && plt.x + plt.width > cube.getX())
+                return plt;
+        }
+
+        return null;
+    }
+
+    public Platform getPlatformTouchedWithHeadCube(Cube cube)
+    {
+        for (Platform plt: floors)
+        {
+            if (plt.y + plt.height + 30 >= cube.getY() - cube.size && plt.y + plt.height - 30 <= cube.getY() - cube.size
+                    && plt.x < cube.getX() + cube.size && plt.x + plt.width > cube.getX())
+                return plt;
+        }
+
+        return null;
+    }
+
+
 }

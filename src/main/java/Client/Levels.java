@@ -25,6 +25,7 @@ public class Levels
 
         lvl.addObjects(new Button(450, 650, 1, 50));
         lvl.addObjects(new Button(650, 650, 2, 50));
+        lvl.addObjects(new Cube(1300, 100));
 
         lvl.lvlNumber = 1;
 

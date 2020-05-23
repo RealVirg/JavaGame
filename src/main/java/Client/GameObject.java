@@ -21,6 +21,7 @@ public class GameObject extends JPanel implements ActionListener
     Image imgBackground = new ImageIcon("sprites/background.jpg").getImage();
     Image imgFloor = new ImageIcon("sprites/floor.jpg").getImage();
     Image imgButton = new ImageIcon("sprites/button.jpg").getImage();
+    Image imgCube = new ImageIcon("sprites/cube.jpg").getImage();
 
     Timer timer = new Timer(1, this);
 
@@ -101,6 +102,7 @@ public class GameObject extends JPanel implements ActionListener
             {
                 g.drawImage(imgButton, e.x, e.y - 50, 50, 50, null);
             }
+            g.drawImage(imgCube, room.cube.getX(), room.cube.getY() - room.cube.size, room.cube.size, room.cube.size, null);
             g.drawImage(imgPlayer1, player1.getX(), player1.getY() - player1.size, player1.size, player1.size, null);
             g.drawImage(imgPlayer2, player2.getX(), player2.getY() - player2.size, player2.size, player2.size, null);
         }
@@ -117,14 +119,17 @@ public class GameObject extends JPanel implements ActionListener
             loadLevel(currentLvl);
             changeLevel = false;
         }
-        else if (room.reachedFinish(player1) && room.reachedFinish(player2))
+        else if (room.reachedFinish(player1) || room.reachedFinish(player2))
         {
-            changeLevel = true;
+            room.cube.checkStatus(room);
+
+            //changeLevel = true;
         }
         room.buttonWasUnpressed(player1);
         room.buttonWasUnpressed(player2);
         room.buttonWasPressed(player1);
         room.buttonWasPressed(player2);
+
     }
 
 }
