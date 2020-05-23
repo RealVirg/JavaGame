@@ -10,6 +10,7 @@ public class Cube
     public int size;
 
     public boolean inForce = false;
+    public Direction direction = Direction.NONE;
 
     public Cube(int X, int Y)
     {
@@ -110,8 +111,14 @@ public class Cube
         return false;
     }
 
-    public void force(int direction, boolean usingForceSpell, Room room)
+    public void force(Direction dir, boolean usingForceSpell, Room room)
     {
+        int direction = 0;
+        if (dir == Direction.LEFT)
+            direction = -1;
+        else if (dir == Direction.RIGHT)
+            direction = 1;
+
         if (!inForce && usingForceSpell)
         {
             inForce = true;
@@ -119,7 +126,7 @@ public class Cube
 
         }
 
-        if (wallInFrontCube(room, direction))
+        if (wallInFrontCube(room, dir))
         {
             speedX = 0;
             inForce = false;
@@ -137,17 +144,17 @@ public class Cube
         }
     }
 
-    public boolean wallInFrontCube(Room room, int dir)
+    public boolean wallInFrontCube(Room room, Direction dir)
     {
         for (Platform wall: room.walls)
         {
-            if (dir == -1 && x <= wall.x + wall.width && x + size >= wall.x + wall.width &&
+            if (dir == Direction.LEFT && x <= wall.x + wall.width && x + size >= wall.x + wall.width &&
                     (y <= wall.y + wall.height && y >= wall.y))
             {
                 x = wall.x + wall.width;
                 return true;
             }
-            else if (dir == 1 && x + size >= wall.x && x <= wall.x &&
+            else if (dir == Direction.RIGHT && x + size >= wall.x && x <= wall.x &&
                     (y <= wall.y + wall.height && y >= wall.y))
             {
                 x = wall.x - size;
@@ -155,12 +162,12 @@ public class Cube
             }
         }
 
-        if (dir == -1 && x <= 0)
+        if (dir == Direction.LEFT && x <= 0)
         {
             x = 0;
             return true;
         }
-        else if (dir == 1 && x + size >= room.width)
+        else if (dir == Direction.RIGHT && x + size >= room.width)
         {
             x = room.width - size;
             return true;

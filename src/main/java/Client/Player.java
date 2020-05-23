@@ -13,14 +13,14 @@ public class Player
     private int accelerationY = 0;
     public int size;
 
-    enum Direction
-    {
-        UP,
-        DOWN,
-        RIGHT,
-        LEFT,
-        NONE
-    }
+//    enum Direction
+//    {
+//        UP,
+//        DOWN,
+//        RIGHT,
+//        LEFT,
+//        NONE
+//    }
 
     Direction playerDirection = Direction.NONE;
 
@@ -192,6 +192,8 @@ public class Player
             x = room.width - size;
             return true;
         }
+
+        //if (dir == Direction.LEFT && y == room.cube.getY() && x <= room.cube.getX() && x + size >= room.cube.getX())
 
         return false;
     }

@@ -121,12 +121,12 @@ public class GameObject extends JPanel implements ActionListener
         }
         else if (room.reachedFinish(player1) || room.reachedFinish(player2))
         {
-            room.cube.force(-1, true, room);
+            room.cube.force(Direction.LEFT, true, room);
 
             //changeLevel = true;
         }
         room.cube.checkStatus(room);
-        room.cube.force(-1, false, room);
+        room.cube.force(Direction.LEFT, false, room);
 
         room.buttonWasUnpressed(player1);
         room.buttonWasUnpressed(player2);
