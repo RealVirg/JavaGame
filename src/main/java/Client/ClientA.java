@@ -10,7 +10,7 @@ public class ClientA
     final static int ServerPort = 1234;
 
     public static void main(String args[]) throws UnknownHostException, IOException, InterruptedException {
-        JFrame frame = new JFrame("JustGame");
+        JFrame frame = new JFrame("Portal 3");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setUndecorated(false);
@@ -89,7 +89,7 @@ public class ClientA
         while (run)
         {
             Thread.sleep(1);
-            if (gameObject.player1.getSpell() == "nothing")
+            if (gameObject.player1.getSpell().equals("nothing"))
             {
                 gameObject.player1.makeSpell(playerSpell[0]);
             }
