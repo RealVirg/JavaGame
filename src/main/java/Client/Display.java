@@ -11,6 +11,7 @@ public class Display extends JFrame {
         frame.setUndecorated(true);
         GameObject game = new GameObject(frame);
         game.in_playing = true;
+        game.firstClient = true;
         frame.add(game);
         frame.setVisible(true);
     }

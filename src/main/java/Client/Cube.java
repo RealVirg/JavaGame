@@ -4,18 +4,17 @@ import java.awt.event.KeyEvent;
 
 public class Cube
 {
-    public double x;
-    public double y;
-    public double speedX;
-    public double speedY = 0;
-    public double accelerationY = 0;
-    public int size;
-    public boolean changedGravity = false;
+    private double x;
+    private double y;
+    private double speedX;
+    private double speedY = 0;
+    int size;
+    private boolean changedGravity = false;
 
-    public boolean inForce = false;
+    private boolean inForce = false;
     public Direction direction = Direction.NONE;
 
-    public Cube(int X, int Y)
+    Cube(int X, int Y)
     {
         this.size = 60;
         this.x = X;
@@ -23,35 +22,36 @@ public class Cube
         this.speedX = 0;
     }
 
-    public void changeY(double newY)
+    void changeY(double newY)
     {
         y = newY;
     }
 
-    public void changeX(double newX)
+    void changeX(double newX)
     {
         x = newX;
     }
 
-    public double getX() {
+    double getX() {
         return x;
     }
 
-    public double getY() {
+    double getY() {
         return y;
     }
 
-    public boolean isFalling = false;
+    private boolean isFalling = false;
 
-    public void changeGravity()
+    void changeGravity()
     {
         changedGravity = !changedGravity;
         speedY = 0;
     }
 
-    public void fall(final Room room)
+    private void fall(final Room room)
     {
         isFalling = true;
+        double accelerationY = 0;
         if (!changedGravity)
             accelerationY = -0.01;
         else
@@ -100,7 +100,7 @@ public class Cube
     }
 */
 
-    public boolean touchedFloor(Room room)
+    private boolean touchedFloor(Room room)
     {
         if (y >= room.height) {
             y = room.height + size;
@@ -134,7 +134,7 @@ public class Cube
 //
 //    }
 
-    public void force(Direction dir, boolean usingForceSpell, Room room)
+    void force(Direction dir, boolean usingForceSpell, Room room)
     {
         int direction = 0;
         if (dir == Direction.LEFT)
@@ -176,7 +176,7 @@ public class Cube
         }
     }
 
-    public boolean wallInFrontCube(Room room, Direction dir)
+    private boolean wallInFrontCube(Room room, Direction dir)
     {
         for (Platform wall: room.walls)
         {
@@ -210,7 +210,7 @@ public class Cube
 
 
 
-    public void checkStatus(Room room)
+    void checkStatus(Room room)
     {
         if (!touchedFloor(room))
             fall(room);

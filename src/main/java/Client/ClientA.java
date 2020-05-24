@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class ClientA
 {
-    final static int ServerPort = 1234;
+    private final static int ServerPort = 1234;
 
     public static void main(String args[]) throws UnknownHostException, IOException, InterruptedException {
         JFrame frame = new JFrame("Portal 3");
@@ -107,8 +107,8 @@ public class ClientA
             if (currentMessage.length() != 0 && !mate[0].equals("nothing"))
             {
                 String[] ar = currentMessage.split(" ");
-                gameObject.player2.changeX(Integer.parseInt(ar[0]));
-                gameObject.player2.changeY(Integer.parseInt(ar[1]));
+                gameObject.player2.changeX(Double.parseDouble(ar[0]));
+                gameObject.player2.changeY(Double.parseDouble(ar[1]));
                 if (mate[0].equals("client 0"))
                 {
                     gameObject.cube.changeX(Double.parseDouble(ar[2]));

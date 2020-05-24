@@ -2,11 +2,11 @@ package Client;
 
 import java.util.ArrayList;
 
-public class Levels
+class Levels
 {
-    public static ArrayList<Room> levels = new ArrayList<Room>();
+    static ArrayList<Room> levels = new ArrayList<Room>();
 
-    public static void createLevel1()
+    static void createLevel1()
     {
         Room lvl = new Room(1080, 1920);
 
@@ -33,7 +33,7 @@ public class Levels
         levels.add(lvl);
     }
 
-    public static void createLevel2()
+    static void createLevel2()
     {
         Room lvl = new Room(1080, 1920);
 

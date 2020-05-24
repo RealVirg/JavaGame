@@ -35,7 +35,7 @@ public class Room
 
     public Room(int H, int W)
     {
-        int startPositionX = 0;
+        int startPositionX = 50;
         int startPositionY = 1030;
 
         buttons = new ArrayList<Button>();
@@ -99,7 +99,7 @@ public class Room
     {
         for (Platform plt: floors)
         {
-            if (plt.y + 30 >= player.getY() && plt.y - 30 <= player.getY()
+            if (plt.y + 30 >= player.getY() && plt.y <= player.getY()
                     && plt.x < player.getX() + player.size && plt.x + plt.width > player.getX())
                 return plt;
         }
@@ -111,7 +111,7 @@ public class Room
     {
         for (Platform plt: floors)
         {
-            if (plt.y + plt.height + 30 >= player.getY() - player.size && plt.y + plt.height - 30 <= player.getY() - player.size
+            if (plt.y + plt.height >= player.getY() - player.size && plt.y + plt.height - 30 <= player.getY() - player.size
                     && plt.x < player.getX() + player.size && plt.x + plt.width > player.getX())
                 return plt;
         }

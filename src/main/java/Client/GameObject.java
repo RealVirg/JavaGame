@@ -14,29 +14,28 @@ import javax.swing.Timer;
 
 public class GameObject extends JPanel implements ActionListener
 {
-    JFrame frame;
+    private JFrame frame;
 
-    Image imgPlayer1 = new ImageIcon("sprites/player1.jpg").getImage();
-    Image imgPlayer2 = new ImageIcon("sprites/player2.jpg").getImage();
-    Image imgBackground = new ImageIcon("sprites/background.jpg").getImage();
-    Image imgFloor = new ImageIcon("sprites/floor.jpg").getImage();
-    Image imgButton = new ImageIcon("sprites/button.jpg").getImage();
-    Image imgCube = new ImageIcon("sprites/cube.jpg").getImage();
-
-    Timer timer = new Timer(1, this);
+    private Image imgPlayer1 = new ImageIcon("sprites/player1.jpg").getImage();
+    private Image imgPlayer2 = new ImageIcon("sprites/player2.jpg").getImage();
+    private Image imgBackground = new ImageIcon("sprites/background.jpg").getImage();
+    private Image imgFloor = new ImageIcon("sprites/floor.jpg").getImage();
+    private Image imgButton = new ImageIcon("sprites/button.jpg").getImage();
+    private Image imgCube = new ImageIcon("sprites/cube.jpg").getImage();
 
     boolean in_playing = false;
     boolean firstClient = false;
-    int currentLvl = 0;
+    private int currentLvl = 0;
 
     Room room;
     Player player1;
     Player player2;
     Cube cube;
-    boolean changeLevel = false;
+    private boolean changeLevel = false;
 
-    public GameObject(JFrame Frame)
+    GameObject(JFrame Frame)
     {
+        Timer timer = new Timer(1, this);
         timer.start();
         this.frame = Frame;
 /*
@@ -84,7 +83,7 @@ public class GameObject extends JPanel implements ActionListener
         });
     }
 
-    public void loadLevel(int levelNumber)
+    private void loadLevel(int levelNumber)
     {
         room = Levels.levels.get(levelNumber);
         player1 =  Levels.levels.get(levelNumber).players.get(0);
@@ -109,8 +108,8 @@ public class GameObject extends JPanel implements ActionListener
                 g.drawImage(imgButton, e.x, e.y - 50, 50, 50, null);
             }
             g.drawImage(imgCube, (int)Math.round(room.cube.getX()), (int)Math.round(room.cube.getY()) - room.cube.size, room.cube.size, room.cube.size, null);
-            g.drawImage(imgPlayer1, player1.getX(), player1.getY() - player1.size, player1.size, player1.size, null);
-            g.drawImage(imgPlayer2, player2.getX(), player2.getY() - player2.size, player2.size, player2.size, null);
+            g.drawImage(imgPlayer1, (int)Math.round(player1.getX()), (int)Math.round(player1.getY()) - player1.size, player1.size, player1.size, null);
+            g.drawImage(imgPlayer2, (int)Math.round(player2.getX()), (int)Math.round(player2.getY()) - player2.size, player2.size, player2.size, null);
         }
     }
 
@@ -119,6 +118,7 @@ public class GameObject extends JPanel implements ActionListener
         // TODO Auto-generated method stub
         repaint();
         player1.move(room);
+        player1.checkStatus(room);
         if (changeLevel)
         {
             currentLvl++;

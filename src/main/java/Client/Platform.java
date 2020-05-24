@@ -1,18 +1,18 @@
 package Client;
 
-public class Platform
+class Platform
 {
-    public int x;
-    public int y;
+    int x;
+    int y;
 
-    public int height;
-    public int width;
+    int height;
+    int width;
 
-    public int ID;
+    int ID;
 
     Construction construction = Construction.NONE;
 
-    public Platform(int X, int Y, int H, int W, Construction type, int id)
+    Platform(int X, int Y, int H, int W, Construction type, int id)
     {
         height = H;
         width = W;
@@ -22,12 +22,12 @@ public class Platform
         ID = id;
     }
 
-    public void openTheDoor()
+    void openTheDoor()
     {
         y = y + 1000;
     }
 
-    public void closeTheDoor()
+    void closeTheDoor()
     {
         y = y - 1000;
     }

@@ -6,12 +6,11 @@ import java.util.TimerTask;
 
 public class Player
 {
-    private int x;
-    private int y;
-    private int speedX;
-    private int speedY = 0;
-    private int accelerationY = 0;
-    public int size;
+    private double x;
+    private double y;
+    private double speedX;
+    private double speedY = 0;
+    int size;
 
 //    enum Direction
 //    {
@@ -22,23 +21,23 @@ public class Player
 //        NONE
 //    }
 
-    Direction playerDirection = Direction.NONE;
+    private Direction playerDirection = Direction.NONE;
 
     private String spell = "nothing";
-    public boolean usingSpell = false;
+    boolean usingSpell = false;
 
-    public void makeSpell(String nameSpell)
+    void makeSpell(String nameSpell)
     {
         spell = nameSpell;
     }
 
 
-    public String getSpell()
+    String getSpell()
     {
         return spell;
     }
 
-    public Player(int X, int Y, int speedX, int Size)
+    Player(int X, int Y, int speedX, int Size)
     {
         this.size = Size;
         this.x = X;
@@ -46,103 +45,122 @@ public class Player
         this.speedX = speedX;
     }
 
-    public void changeX(int newX)
+    void changeX(double newX)
     {
         x = newX;
     }
 
-    public void changeY(int newY)
+    void changeY(double newY)
     {
         y = newY;
     }
 
-    public int getX() {
+    double getX() {
         return x;
     }
 
-    public int getY() {
+    double getY() {
         return y;
     }
 
-    public int getSpeedX() {
+    public double getSpeedX() {
         return speedX;
     }
 
-    public int getSpeedY() {
+    public double getSpeedY() {
         return speedY;
     }
 
-    public boolean isJumping = false;
-    public boolean isFalling = false;
+    private boolean isJumping = false;
+    private boolean isFalling = false;
 
-    public void jump(final Room room)
-    {
-        isJumping = true;
-        speedY = 40;
-        accelerationY = -4;
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run()
-            {
-                if (speedY < 0)
-                    playerDirection = Direction.DOWN;
-
-                if (speedY > 0 && touchedFloor(room))
-                {
-                    speedY = 0;
-                }
-
-                changeY(y- speedY);
-
-                speedY += accelerationY;
-
-                if (speedY <= 0 && touchedFloor(room))
-                {
-                    speedY = 0;
-                    accelerationY = 0;
-                    isJumping = false;
-                    cancel();
-                }
-            }
-        };
-
-        Timer timer = new Timer();
-        int delay = 1;
-        int period = 40;
-        timer.scheduleAtFixedRate(task, delay, period);
-    }
+//    public void jump(final Room room)
+//    {
+//        isJumping = true;
+//        speedY = 40;
+//        accelerationY = -4;
+//        TimerTask task = new TimerTask() {
+//            @Override
+//            public void run()
+//            {
+//                if (speedY < 0)
+//                    playerDirection = Direction.DOWN;
+//
+//                if (speedY > 0 && touchedFloor(room))
+//                {
+//                    speedY = 0;
+//                }
+//
+//                changeY(y- speedY);
+//
+//                speedY += accelerationY;
+//
+//                if (speedY <= 0 && touchedFloor(room))
+//                {
+//                    speedY = 0;
+//                    accelerationY = 0;
+//                    isJumping = false;
+//                    cancel();
+//                }
+//            }
+//        };
+//
+//        Timer timer = new Timer();
+//        int delay = 1;
+//        int period = 40;
+//        timer.scheduleAtFixedRate(task, delay, period);
+//    }
 
 // Падение с платформы
 
-    public void fall(final Room room)
+    private void fall_2_0(Room room)
     {
-        isFalling = true;
-        accelerationY = -2;
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run()
-            {
-                speedY += accelerationY;
+        double accelerationY = -0.01;
+        if (!touchedFloor(room))
+        {
+            isJumping = true;
+            speedY += accelerationY;
 
-                changeY(y- speedY);
-
-                if (touchedFloor(room))
-                {
-                    speedY = 0;
-                    accelerationY = 0;
-                    isFalling = false;
-                    cancel();
-                }
-            }
-        };
-
-        Timer timer = new Timer();
-        int delay = 1;
-        int period = 50;
-        timer.scheduleAtFixedRate(task, delay, period);
+            changeY(y - speedY);
+        }
+        else
+        {
+            speedY = 0;
+            accelerationY = 0;
+            isFalling = false;
+            isJumping = false;
+        }
     }
 
-    public boolean touchedFloor(Room room)
+//    public void fall(final Room room)
+//    {
+//        isFalling = true;
+//        accelerationY = -2;
+//        TimerTask task = new TimerTask() {
+//            @Override
+//            public void run()
+//            {
+//                speedY += accelerationY;
+//
+//                changeY(y- speedY);
+//
+//                if (touchedFloor(room))
+//                {
+//                    speedY = 0;
+//                    accelerationY = 0;
+//                    isFalling = false;
+//                    cancel();
+//                }
+//            }
+//        };
+//
+//        Timer timer = new Timer();
+//        int delay = 1;
+//        int period = 50;
+//        timer.scheduleAtFixedRate(task, delay, period);
+//    }
+
+    private boolean touchedFloor(Room room)
     {
         if (y >= room.height)
         {
@@ -173,8 +191,24 @@ public class Player
         return false;
     }
 
-    public boolean wallInFront(Room room, Direction dir)
+    private boolean wallInFront(Room room, Direction dir)
     {
+        for (Platform wall: room.floors)
+        {
+            if (dir == Direction.LEFT && x < wall.x + wall.width && x + size > wall.x + wall.width &&
+                    (y < wall.y + wall.height && y > wall.y))
+            {
+                x = wall.x + wall.width;
+                return true;
+            }
+            else if (dir == Direction.RIGHT && x + size > wall.x && x < wall.x &&
+                    (y < wall.y + wall.height && y > wall.y))
+            {
+                x = wall.x - size;
+                return true;
+            }
+        }
+
         for (Platform wall: room.walls)
         {
             if (dir == Direction.LEFT && x <= wall.x + wall.width && x + size >= wall.x + wall.width &&
@@ -190,6 +224,8 @@ public class Player
                 return true;
             }
         }
+
+
 
         if (dir == Direction.LEFT && x <= 0)
         {
@@ -219,28 +255,28 @@ public class Player
         return false;
     }
 
-    public void move(Room room)
+    void move(Room room)
     {
         switch(playerDirection)
         {
             case UP:
-                if (isJumping || isFalling)
-                    break;
-                this.jump(room);
+//                if (isJumping || isFalling)
+//                    break;
+//                this.jump(room);
                 break;
             case LEFT:
                 if (wallInFront(room, Direction.LEFT))
                     break;
                 x-= speedX;
-                if (!touchedFloor(room) && !isJumping)
-                    this.fall(room);
+//                if (!touchedFloor(room) && !isJumping)
+//                    this.fall(room);
                 break;
             case RIGHT:
                 if (wallInFront(room, Direction.RIGHT))
                     break;
                 x+= speedX;
-                if (!touchedFloor(room) && !isJumping)
-                    this.fall(room);
+//                if (!touchedFloor(room) && !isJumping)
+//                    this.fall(room);
                 break;
             default:
                 break;
@@ -248,13 +284,16 @@ public class Player
         playerDirection = Direction.NONE;
     }
 
-    public void keyPressed(KeyEvent e)
+    void keyPressed(KeyEvent e)
     {
         System.out.println(e.getKeyCode());
         int key = e.getKeyCode();
 
         if (key == KeyEvent.VK_SPACE) {
-            playerDirection = Direction.UP;
+            if (!isJumping) {
+                speedY = 2;
+                isJumping = true;
+            }
         }
         //if (key == KeyEvent.VK_S) {
         //    playerDirection = Direction.DOWN;
@@ -272,7 +311,12 @@ public class Player
 
     }
 
-    public void keyReleased(KeyEvent e)
+    void checkStatus(Room room)
+    {
+        fall_2_0(room);
+    }
+
+    void keyReleased(KeyEvent e)
     {
 
     }
