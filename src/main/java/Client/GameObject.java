@@ -22,6 +22,7 @@ public class GameObject extends JPanel implements ActionListener
     private Image imgFloor = new ImageIcon("sprites/floor.jpg").getImage();
     private Image imgButton = new ImageIcon("sprites/button.jpg").getImage();
     private Image imgCube = new ImageIcon("sprites/cube.jpg").getImage();
+    private Image imgFinish = new ImageIcon("sprites/finish.jpg").getImage();
 
     boolean in_playing = false;
     boolean firstClient = false;
@@ -91,6 +92,12 @@ public class GameObject extends JPanel implements ActionListener
         cube = Levels.levels.get(levelNumber).cube;
     }
 
+    private void recreateLevels()
+    {
+        Levels.createLevel1();
+        Levels.createLevel2();
+    }
+
     public void paint(Graphics g)
     {
         g.drawImage(imgBackground, 0, 0,frame.getWidth(), frame.getHeight(), null);
@@ -108,6 +115,7 @@ public class GameObject extends JPanel implements ActionListener
                 g.drawImage(imgButton, e.x, e.y - 50, 50, 50, null);
             }
             g.drawImage(imgCube, (int)Math.round(room.cube.getX()), (int)Math.round(room.cube.getY()) - room.cube.size, room.cube.size, room.cube.size, null);
+            g.drawImage(imgFinish, room.roomFinishX, room.roomFinishY - 50, 50, 50, null);
             g.drawImage(imgPlayer1, (int)Math.round(player1.getX()), (int)Math.round(player1.getY()) - player1.size, player1.size, player1.size, null);
             g.drawImage(imgPlayer2, (int)Math.round(player2.getX()), (int)Math.round(player2.getY()) - player2.size, player2.size, player2.size, null);
         }

@@ -1,8 +1,6 @@
 package Client;
 
 import java.awt.event.KeyEvent;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Player
 {
@@ -113,7 +111,7 @@ public class Player
 
 // Падение с платформы
 
-    private void fall_2_0(Room room)
+    private void fall(Room room)
     {
         double accelerationY = -0.01;
         if (!touchedFloor(room))
@@ -225,8 +223,6 @@ public class Player
             }
         }
 
-
-
         if (dir == Direction.LEFT && x <= 0)
         {
             x = 0;
@@ -239,14 +235,14 @@ public class Player
         }
 
         if (dir == Direction.LEFT && y == room.cube.getY() &&
-                x <= room.cube.getX() + room.cube.size && room.cube.getX() + room.cube.size <= x + size)
+                x >= room.cube.getX() + room.cube.size && room.cube.getX() + room.cube.size + 30 >= x)
         {
             changeX((int)room.cube.getX() + room.cube.size);
             return true;
         }
 
         if (dir == Direction.RIGHT && y == room.cube.getY() &&
-                x + size >= room.cube.getX() && room.cube.getX() >= x)
+                x + size <= room.cube.getX() && room.cube.getX() - 30 <= x + size)
         {
             changeX((int)room.cube.getX() - size);
             return true;
@@ -313,7 +309,7 @@ public class Player
 
     void checkStatus(Room room)
     {
-        fall_2_0(room);
+        fall(room);
     }
 
     void keyReleased(KeyEvent e)

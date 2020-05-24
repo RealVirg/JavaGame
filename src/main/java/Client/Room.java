@@ -17,6 +17,9 @@ public class Room
     public int roomFinishY = 850;
     public ArrayList<Player> players;
 
+    private int startPositionX = 50;
+    private int startPositionY = 1030;
+
     public void addObjects(Object obj)
     {
         if (obj.getClass() == Platform.class)
@@ -33,11 +36,20 @@ public class Room
             cube = (Cube)obj;
     }
 
+    public void setStart(int X, int Y)
+    {
+        startPositionX = X;
+        startPositionY = Y;
+    }
+
+    public void setFinish(int X, int Y)
+    {
+        roomFinishX = X;
+        roomFinishY = Y;
+    }
+
     public Room(int H, int W)
     {
-        int startPositionX = 50;
-        int startPositionY = 1030;
-
         buttons = new ArrayList<Button>();
         floors = new ArrayList<Platform>();
         walls = new ArrayList<Platform>();
@@ -78,8 +90,10 @@ public class Room
     {
         for (Button b: buttons)
         {
-            if (!b.isPressed && (b.x <= player.getX() + player.size && b.x + b.size >= player.getX()
-                    && b.y >= player.getY() && b.y - 10 <= player.getY()))
+            if (!b.isPressed && ((b.x <= player.getX() + player.size && b.x + b.size >= player.getX()
+                    && b.y >= player.getY() && b.y - 10 <= player.getY()) ||
+                    (b.x <= cube.getX() + cube.size && b.x + b.size >= cube.getX()
+                            && b.y >= cube.getY() && b.y - 10 <= cube.getY())))
             {
                 b.isPressed = true;
                 b.y = b.y + 40;
@@ -119,8 +133,6 @@ public class Room
         return null;
     }
 
-
-
     // Cube methods
 
     public Platform getPlatformTouchedByCube(Cube cube)
@@ -149,14 +161,8 @@ public class Room
 
     public boolean playerOnCube(Player player)
     {
-        int tmp = 0;
-        if (((cube.getX() >= player.getX() && cube.getX() <= player.getX() + player.size) ||
-                (cube.getX() + cube.size >= player.getX() && cube.getX() + cube.size <= player.getX() + player.size)) &&
-                player.getY() <= cube.getY() - cube.size + 25 && player.getY() >= cube.getY() - cube.size - 25)
-        {
-            tmp++;
-            return true;
-        }
-        return false;
+        return ((player.getX() + player.size > cube.getX() && player.getX() + player.size < cube.getX() + cube.size) ||
+                (player.getX() > cube.getX() && player.getX() < cube.getX() + cube.size)) &&
+                player.getY() <= cube.getY() - cube.size + 25 && player.getY() >= cube.getY() - cube.size - 25;
     }
 }
