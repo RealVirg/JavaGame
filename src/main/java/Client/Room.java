@@ -147,5 +147,16 @@ public class Room
         return null;
     }
 
-
+    public boolean playerOnCube(Player player)
+    {
+        int tmp = 0;
+        if (((cube.getX() >= player.getX() && cube.getX() <= player.getX() + player.size) ||
+                (cube.getX() + cube.size >= player.getX() && cube.getX() + cube.size <= player.getX() + player.size)) &&
+                player.getY() <= cube.getY() - cube.size + 25 && player.getY() >= cube.getY() - cube.size - 25)
+        {
+            tmp++;
+            return true;
+        }
+        return false;
+    }
 }

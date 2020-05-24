@@ -199,6 +199,8 @@ public class Cube
         return false;
     }
 
+
+
     public void checkStatus(Room room)
     {
         if (!touchedFloor(room))

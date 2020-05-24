@@ -149,15 +149,23 @@ public class Player
             return true;
         }
 
-        if (speedY > 0 && room.getPlatformTouchedWithHead(this) != null)
+        Platform tmp1 = room.getPlatformTouchedWithHead(this);
+        if (speedY > 0 && tmp1 != null)
         {
-            y = room.getPlatformTouchedWithHead(this).y + room.getPlatformTouchedWithHead(this).height + 50;
+            y = tmp1.y + tmp1.height + size;
             return  true;
         }
 
-        if (speedY <= 0 && room.getPlatformTouchedByPlayer(this) != null)
+        Platform tmp2 = room.getPlatformTouchedByPlayer(this);
+        if (speedY <= 0 && tmp2 != null)
         {
-            y = room.getPlatformTouchedByPlayer(this).y;
+            y = tmp2.y;
+            return true;
+        }
+
+        if (speedY <= 0 && room.playerOnCube(this))
+        {
+            changeY((int)room.cube.getY() - room.cube.size);
             return true;
         }
 
