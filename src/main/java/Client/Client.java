@@ -88,17 +88,20 @@ public class Client
         boolean run = true;
         while (run)
         {
+
             Thread.sleep(1);
+            if (mate[0].equals("client 1"))
+                gameObject.firstClient = true;
             if (gameObject.player1.getSpell().equals("nothing"))
             {
                 gameObject.player1.makeSpell(playerSpell[0]);
             }
             if (connection[0] && !connection[1])
             {
-                gameObject.player1.changeX(0);
-                gameObject.player1.changeY(0);
-                gameObject.player2.changeX(0);
-                gameObject.player2.changeY(0);
+                gameObject.player1.changeX(100);
+                gameObject.player1.changeY(100);
+                gameObject.player2.changeX(100);
+                gameObject.player2.changeY(100);
                 gameObject.in_playing = true;
                 connection[1] = true;
             }
@@ -106,9 +109,30 @@ public class Client
             String currentMessage = mate[1];
             if (currentMessage.length() != 0 && !mate[0].equals("nothing"))
             {
-                String[] ar = mate[1].split(" ");
+                String[] ar = currentMessage.split(" ");
                 gameObject.player2.changeX(Integer.parseInt(ar[0]));
                 gameObject.player2.changeY(Integer.parseInt(ar[1]));
+                if (mate[0].equals("client 0"))
+                {
+                    gameObject.cube.changeX(Double.parseDouble(ar[2]));
+                    gameObject.cube.changeY(Double.parseDouble((ar[3])));
+                }
+                if (mate[0].equals("client 1"))
+                {
+                    if (gameObject.player1.usingSpell)
+                    {
+                        gameObject.player1.usingSpell = false;
+                        gameObject.cube.changeGravity();
+                    }
+                    if (ar[2].equals("1"))
+                    {
+                        if (gameObject.player2.getX() > gameObject.cube.getX())
+                            gameObject.cube.force(Direction.LEFT, true, gameObject.room);
+                        else
+                            gameObject.cube.force(Direction.RIGHT, true, gameObject.room);
+
+                    }
+                }
             }
 
 
@@ -116,7 +140,19 @@ public class Client
 
             if (!mate[0].equals("nothing"))
             {
-                outputStream.writeUTF(gameObject.player1.getX() + " " + gameObject.player1.getY() + " 0" +  "#" + mate[0]);
+                if (mate[0].equals("client 1"))
+                {
+                    outputStream.writeUTF(gameObject.player1.getX() + " " + gameObject.player1.getY() + " " + gameObject.cube.getX() + " " + gameObject.cube.getY() + "#" + mate[0]);
+                }
+                else if (mate[0].equals("client 0"))
+                {
+                    if (!gameObject.player1.usingSpell)
+                        outputStream.writeUTF(gameObject.player1.getX() + " " + gameObject.player1.getY() + " 0" + "#" + mate[0]);
+                    else {
+                        outputStream.writeUTF(gameObject.player1.getX() + " " + gameObject.player1.getY() + " 1" + "#" + mate[0]);
+                        gameObject.player1.usingSpell = false;
+                    }
+                }
             }
         }
     }

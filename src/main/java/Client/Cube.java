@@ -122,17 +122,17 @@ public class Cube
         return false;
     }
 
-    public void keyPressed(KeyEvent e)
-    {
-        System.out.println(e.getKeyCode());
-        int key = e.getKeyCode();
-
-        if (key == KeyEvent.VK_E)
-        {
-            changeGravity();
-        }
-
-    }
+//    public void keyPressed(KeyEvent e)
+//    {
+//        System.out.println(e.getKeyCode());
+//        int key = e.getKeyCode();
+//
+//        if (key == KeyEvent.VK_E)
+//        {
+//            changeGravity();
+//        }
+//
+//    }
 
     public void force(Direction dir, boolean usingForceSpell, Room room)
     {
@@ -147,6 +147,15 @@ public class Cube
             inForce = true;
             speedX = 3 * direction;
 
+        }
+
+        if (speedX >= 0)
+        {
+            direction = 1;
+        }
+        else
+        {
+            direction = -1;
         }
 
         if (wallInFrontCube(room, dir))
@@ -207,8 +216,8 @@ public class Cube
             fall(room);
     }
 
-    public void keyReleased(KeyEvent e)
-    {
-
-    }
+//    public void keyReleased(KeyEvent e)
+//    {
+//
+//    }
 }

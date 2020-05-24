@@ -25,6 +25,7 @@ public class Player
     Direction playerDirection = Direction.NONE;
 
     private String spell = "nothing";
+    public boolean usingSpell = false;
 
     public void makeSpell(String nameSpell)
     {
@@ -252,7 +253,7 @@ public class Player
         System.out.println(e.getKeyCode());
         int key = e.getKeyCode();
 
-        if (key == KeyEvent.VK_W) {
+        if (key == KeyEvent.VK_SPACE) {
             playerDirection = Direction.UP;
         }
         //if (key == KeyEvent.VK_S) {
@@ -263,6 +264,10 @@ public class Player
         }
         if (key == KeyEvent.VK_D) {
             playerDirection = Direction.RIGHT;
+        }
+        if (key == KeyEvent.VK_E)
+        {
+            usingSpell = true;
         }
 
     }

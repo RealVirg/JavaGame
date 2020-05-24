@@ -26,11 +26,13 @@ public class GameObject extends JPanel implements ActionListener
     Timer timer = new Timer(1, this);
 
     boolean in_playing = false;
+    boolean firstClient = false;
     int currentLvl = 0;
 
     Room room;
     Player player1;
     Player player2;
+    Cube cube;
     boolean changeLevel = false;
 
     public GameObject(JFrame Frame)
@@ -72,12 +74,12 @@ public class GameObject extends JPanel implements ActionListener
             public void keyPressed(KeyEvent e)
             {
                 player1.keyPressed(e);
-                room.cube.keyPressed(e);
+//                cube.keyPressed(e);
             }
             @Override
             public void keyReleased(KeyEvent e) {
                 player1.keyReleased(e);
-                room.cube.keyReleased(e);
+//                cube.keyReleased(e);
             }
         });
     }
@@ -87,6 +89,7 @@ public class GameObject extends JPanel implements ActionListener
         room = Levels.levels.get(levelNumber);
         player1 =  Levels.levels.get(levelNumber).players.get(0);
         player2  = Levels.levels.get(levelNumber).players.get(1);
+        cube = Levels.levels.get(levelNumber).cube;
     }
 
     public void paint(Graphics g)
@@ -128,8 +131,10 @@ public class GameObject extends JPanel implements ActionListener
 
             //changeLevel = true;
         }
-        room.cube.checkStatus(room);
-        room.cube.force(Direction.LEFT, false, room);
+        if (firstClient) {
+            room.cube.checkStatus(room);
+            room.cube.force(Direction.LEFT, false, room);
+        }
 
         room.buttonWasUnpressed(player1);
         room.buttonWasUnpressed(player2);
