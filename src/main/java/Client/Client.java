@@ -91,7 +91,10 @@ public class Client
 
             Thread.sleep(1);
             if (mate[0].equals("client 1"))
+            {
+                gameObject.tmp = 1;
                 gameObject.firstClient = true;
+            }
             if (gameObject.player1.getSpell().equals("nothing"))
             {
                 gameObject.player1.makeSpell(playerSpell[0]);
