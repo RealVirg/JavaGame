@@ -64,7 +64,7 @@ public class Room
 
     public boolean reachedFinish(Player player)
     {
-        if (roomFinishX > player.getX() && roomFinishX < player.getX() + player.size && roomFinishY == player.getY())
+        if (roomFinishX > player.getX() - 10 && roomFinishX < player.getX() + player.size + 10 && roomFinishY == player.getY())
             return true;
         return false;
     }

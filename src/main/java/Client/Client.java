@@ -13,7 +13,7 @@ public class Client
         JFrame frame = new JFrame("Portal 3");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.setUndecorated(false);
+        frame.setUndecorated(true);
         final GameObject gameObject = new GameObject(frame);
         frame.add(gameObject);
         frame.setVisible(true);
@@ -98,10 +98,10 @@ public class Client
             }
             if (connection[0] && !connection[1])
             {
-                gameObject.player1.changeX(100);
-                gameObject.player1.changeY(100);
-                gameObject.player2.changeX(100);
-                gameObject.player2.changeY(100);
+                //gameObject.player1.changeX(100);
+                //gameObject.player1.changeY(100);
+                //gameObject.player2.changeX(100);
+                //gameObject.player2.changeY(100);
                 gameObject.in_playing = true;
                 connection[1] = true;
             }

@@ -26,7 +26,7 @@ public class GameObject extends JPanel implements ActionListener
 
     boolean in_playing = false;
     boolean firstClient = false;
-    private int currentLvl = 0;
+    private int currentLvl = 1;
 
     Room room;
     Player player1;
@@ -66,6 +66,7 @@ public class GameObject extends JPanel implements ActionListener
  */
         Levels.createLevel1();
         Levels.createLevel2();
+        Levels.createLevel3();
 
         loadLevel(currentLvl);
 
@@ -86,16 +87,17 @@ public class GameObject extends JPanel implements ActionListener
 
     private void loadLevel(int levelNumber)
     {
-        room = Levels.levels.get(levelNumber);
-        player1 =  Levels.levels.get(levelNumber).players.get(0);
-        player2  = Levels.levels.get(levelNumber).players.get(1);
-        cube = Levels.levels.get(levelNumber).cube;
+        room = Levels.levels.get(levelNumber - 1);
+        player1 =  Levels.levels.get(levelNumber - 1).players.get(0);
+        player2  = Levels.levels.get(levelNumber - 1).players.get(1);
+        cube = Levels.levels.get(levelNumber - 1).cube;
     }
 
     private void recreateLevels()
     {
         Levels.createLevel1();
         Levels.createLevel2();
+        Levels.createLevel3();
     }
 
     public void paint(Graphics g)
@@ -130,14 +132,18 @@ public class GameObject extends JPanel implements ActionListener
         if (changeLevel)
         {
             currentLvl++;
+            if (currentLvl == 4)
+            {
+                currentLvl = 1;
+                recreateLevels();
+            }
             loadLevel(currentLvl);
             changeLevel = false;
         }
-        else if (room.reachedFinish(player1) || room.reachedFinish(player2))
+        else if (room.reachedFinish(player1) && room.reachedFinish(player2))
         {
-            room.cube.force(Direction.LEFT, true, room);
-
-            //changeLevel = true;
+            //room.cube.force(Direction.LEFT, true, room);
+            changeLevel = true;
         }
         if (firstClient) {
             room.cube.checkStatus(room);
