@@ -95,6 +95,7 @@ public class GameObject extends JPanel implements ActionListener
 
     private void recreateLevels()
     {
+        Levels.levels.clear();
         Levels.createLevel1();
         Levels.createLevel2();
         Levels.createLevel3();
