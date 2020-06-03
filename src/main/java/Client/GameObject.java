@@ -29,6 +29,7 @@ public class GameObject extends JPanel implements ActionListener
     private int currentLvl = 1;
 
     int tmp = 0;
+    int firstLoadLvl = 1;
 
     Room room;
     Player player1;
@@ -66,9 +67,8 @@ public class GameObject extends JPanel implements ActionListener
         player1 = new Player(startPositionX, startPositionY, 20, 50);
         player2 = new Player(startPositionX, startPositionY, 20, 50);
  */
-        Levels.createLevel1();
-        Levels.createLevel2();
-        Levels.createLevel3();
+        for (int i = firstLoadLvl; i < Levels.levelsCount; i++)
+            Levels.createLevel(i);
 
         loadLevel(currentLvl);
 
@@ -98,9 +98,8 @@ public class GameObject extends JPanel implements ActionListener
     private void recreateLevels()
     {
         Levels.levels.clear();
-        Levels.createLevel1();
-        Levels.createLevel2();
-        Levels.createLevel3();
+        for (int i = firstLoadLvl; i < Levels.levelsCount; i++)
+            Levels.createLevel(i);
     }
 
     public void paint(Graphics g)

@@ -13,12 +13,12 @@ public class Room
     public Cube cube;
 
     public int lvlNumber;
-    public int roomFinishX = 1895;
-    public int roomFinishY = 850;
+    public int roomFinishX;
+    public int roomFinishY;
     public ArrayList<Player> players;
 
-    private int startPositionX = 50;
-    private int startPositionY = 1030;
+    private int startPositionX;
+    private int startPositionY;
 
     public void addObjects(Object obj)
     {
@@ -39,7 +39,11 @@ public class Room
     public void setStart(int X, int Y)
     {
         startPositionX = X;
+        players.get(0).changeX(X);
+        players.get(1).changeX(X);
         startPositionY = Y;
+        players.get(0).changeY(Y);
+        players.get(1).changeY(Y);
     }
 
     public void setFinish(int X, int Y)
@@ -75,13 +79,13 @@ public class Room
         {
             if (b.isPressed && (b.x >= player.getX() + player.size || b.x + b.size <= player.getX() || b.y - b.size > player.getY()))
             {
-                    b.isPressed = false;
-                    b.y = b.y - 40;
-                    for (Platform w: walls)
-                    {
-                        if (b.id == w.ID)
-                            w.closeTheDoor();
-                    }
+                b.isPressed = false;
+                b.y = b.y - 40;
+                for (Platform w: walls)
+                {
+                    if (b.id == w.ID)
+                        w.closeTheDoor();
+                }
             }
         }
     }
@@ -118,6 +122,13 @@ public class Room
                 return plt;
         }
 
+        for (Platform w: walls)
+        {
+            if (w.y + 30 >= player.getY() && w.y <= player.getY()
+                    && w.x < player.getX() + player.size && w.x + w.width > player.getX())
+                return w;
+        }
+
         return null;
     }
 
@@ -128,6 +139,13 @@ public class Room
             if (plt.y + plt.height >= player.getY() - player.size && plt.y + plt.height - 30 <= player.getY() - player.size
                     && plt.x < player.getX() + player.size && plt.x + plt.width > player.getX())
                 return plt;
+        }
+
+        for (Platform w: walls)
+        {
+            if (w.y + w.height >= player.getY() - player.size && w.y + w.height - 30 <= player.getY() - player.size
+                    && w.x < player.getX() + player.size && w.x + w.width > player.getX())
+                return w;
         }
 
         return null;
@@ -144,6 +162,13 @@ public class Room
                 return plt;
         }
 
+        for (Platform w: walls)
+        {
+            if (w.y + 30 >= cube.getY() && w.y - 30 <= cube.getY()
+                    && w.x < cube.getX() + cube.size && w.x + w.width > cube.getX())
+                return w;
+        }
+
         return null;
     }
 
@@ -154,6 +179,13 @@ public class Room
             if (plt.y + plt.height + 30 >= cube.getY() - cube.size && plt.y + plt.height - 30 <= cube.getY() - cube.size
                     && plt.x < cube.getX() + cube.size && plt.x + plt.width > cube.getX())
                 return plt;
+        }
+
+        for (Platform w: walls)
+        {
+            if (w.y + w.height + 30 >= cube.getY() - cube.size && w.y + w.height - 30 <= cube.getY() - cube.size
+                    && w.x < cube.getX() + cube.size && w.x + w.width > cube.getX())
+                return w;
         }
 
         return null;

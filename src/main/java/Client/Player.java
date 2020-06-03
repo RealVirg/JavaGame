@@ -191,18 +191,18 @@ public class Player
 
     private boolean wallInFront(Room room, Direction dir)
     {
-        for (Platform wall: room.floors)
+        for (Platform plt: room.floors)
         {
-            if (dir == Direction.LEFT && x < wall.x + wall.width && x + size > wall.x + wall.width &&
-                    (y < wall.y + wall.height && y > wall.y))
+            if (dir == Direction.LEFT && x < plt.x + plt.width && x + size > plt.x + plt.width &&
+                    (y < plt.y + plt.height && y > plt.y))
             {
-                x = wall.x + wall.width;
+                x = plt.x + plt.width;
                 return true;
             }
-            else if (dir == Direction.RIGHT && x + size > wall.x && x < wall.x &&
-                    (y < wall.y + wall.height && y > wall.y))
+            else if (dir == Direction.RIGHT && x + size > plt.x && x < plt.x &&
+                    (y < plt.y + plt.height && y > plt.y))
             {
-                x = wall.x - size;
+                x = plt.x - size;
                 return true;
             }
         }
@@ -210,13 +210,13 @@ public class Player
         for (Platform wall: room.walls)
         {
             if (dir == Direction.LEFT && x <= wall.x + wall.width && x + size >= wall.x + wall.width &&
-                    (y <= wall.y + wall.height && y >= wall.y))
+                    (y <= wall.y + wall.height && y > wall.y))
             {
                 x = wall.x + wall.width;
                 return true;
             }
             else if (dir == Direction.RIGHT && x + size >= wall.x && x <= wall.x &&
-                    (y <= wall.y + wall.height && y >= wall.y))
+                    (y <= wall.y + wall.height && y > wall.y))
             {
                 x = wall.x - size;
                 return true;

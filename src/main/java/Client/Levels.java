@@ -6,7 +6,14 @@ class Levels
 {
     static ArrayList<Room> levels = new ArrayList<Room>();
 
-    static void createLevel1()
+    public static int levelsCount = 4;
+
+    private static void createLevel0()
+    {
+
+    }
+
+    private static void createLevel1()
     {
         Room lvl = new Room(1080, 1920);
 
@@ -30,7 +37,7 @@ class Levels
         levels.add(lvl);
     }
 
-    static void createLevel2()
+    private static void createLevel2()
     {
         Room lvl = new Room(1080, 1920);
 
@@ -53,7 +60,7 @@ class Levels
         levels.add(lvl);
     }
 
-    static void createLevel3()
+    private static void createLevel3()
     {
         Room lvl = new Room(1080, 1920);
 
@@ -75,7 +82,45 @@ class Levels
         levels.add(lvl);
     }
 
-    static void createLevelDemo()
+    private static void createLevel4()
+    {
+        Room lvl = new Room(1080, 1920);
+
+        lvl.setFinish(1500, 300);
+        lvl.setStart(100,300);
+
+        lvl.addObjects(new Platform(0, 1030, 50, 1920, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(0, 0, 50, 1920, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(0, 300, 50, 1920, Construction.FLOOR, 0));
+
+        lvl.addObjects(new Platform(0, 700, 50, 600, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(600, 610, 50, 400, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(1000, 450, 50, 400, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(1200, 600, 50, 400, Construction.FLOOR, 0));
+
+
+        lvl.addObjects(new Platform(300, 860, 170, 50, Construction.WALL, 0));
+        lvl.addObjects(new Platform(600, 660, 170, 50, Construction.WALL, 0));
+        lvl.addObjects(new Platform(800, 760, 270, 50, Construction.WALL, 0));
+        lvl.addObjects(new Platform(1000, 500, 200, 50, Construction.WALL, 0));
+        lvl.addObjects(new Platform(1200, 650, 380, 50, Construction.WALL, 0));
+
+        lvl.addObjects(new Platform(500, 50, 250, 50, Construction.WALL, 1));
+        lvl.addObjects(new Platform(1400, 450, 150, 50, Construction.WALL, 2));
+        lvl.addObjects(new Platform(1000, 50, 250, 50, Construction.WALL, 3));
+
+        lvl.addObjects(new Button(1250, 600, 1, 50));
+        lvl.addObjects(new Button(750, 300, 2, 50));
+        lvl.addObjects(new Button(1700, 1030, 3, 50));
+
+        lvl.addObjects(new Cube(150, 1030));
+
+        lvl.lvlNumber = 4;
+
+        levels.add(lvl);
+    }
+
+    private static void createLevelDemo()
     {
         Room lvl = new Room(1080, 1920);
 
@@ -103,6 +148,20 @@ class Levels
 
         lvl.lvlNumber = 322;
 
-        levels.add(lvl);
+        //levels.add(lvl);
+    }
+
+    public static void createLevel(int number)
+    {
+        if (number == 0)
+            createLevel0();
+        else if (number == 1)
+            createLevel1();
+        else if (number == 2)
+            createLevel2();
+        else if (number == 3)
+            createLevel3();
+        else if (number == 4)
+            createLevel4();
     }
 }
