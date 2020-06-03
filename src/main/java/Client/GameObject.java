@@ -67,7 +67,7 @@ public class GameObject extends JPanel implements ActionListener
         player1 = new Player(startPositionX, startPositionY, 20, 50);
         player2 = new Player(startPositionX, startPositionY, 20, 50);
  */
-        for (int i = firstLoadLvl; i < Levels.levelsCount; i++)
+        for (int i = firstLoadLvl; i <= Levels.levelsCount; i++)
             Levels.createLevel(i);
 
         loadLevel(currentLvl);
@@ -98,7 +98,7 @@ public class GameObject extends JPanel implements ActionListener
     private void recreateLevels()
     {
         Levels.levels.clear();
-        for (int i = firstLoadLvl; i < Levels.levelsCount; i++)
+        for (int i = firstLoadLvl; i <= Levels.levelsCount; i++)
             Levels.createLevel(i);
     }
 
@@ -143,7 +143,7 @@ public class GameObject extends JPanel implements ActionListener
         if (changeLevel)
         {
             currentLvl++;
-            if (currentLvl == 4)
+            if (currentLvl == 5)
             {
                 currentLvl = 1;
                 recreateLevels();
