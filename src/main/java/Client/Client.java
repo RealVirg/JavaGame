@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.io.*;
 import java.net.*;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 public class Client
 {
@@ -119,6 +120,10 @@ public class Client
                 {
                     gameObject.cube.changeX(Double.parseDouble(ar[2]));
                     gameObject.cube.changeY(Double.parseDouble((ar[3])));
+                    if (Integer.parseInt(ar[4]) != gameObject.currentLvl)
+                    {
+                        gameObject.changeLevel = true;
+                    }
                 }
                 if (mate[0].equals("client 1"))
                 {
@@ -138,14 +143,14 @@ public class Client
                 }
             }
 
-
             //main game method
 
             if (!mate[0].equals("nothing"))
             {
                 if (mate[0].equals("client 1"))
                 {
-                    outputStream.writeUTF(gameObject.player1.getX() + " " + gameObject.player1.getY() + " " + gameObject.cube.getX() + " " + gameObject.cube.getY() + "#" + mate[0]);
+                    outputStream.writeUTF(gameObject.player1.getX() + " " + gameObject.player1.getY() + " " + gameObject.cube.getX() + " " +
+                            gameObject.cube.getY() + " " + gameObject.currentLvl + "#" + mate[0]);
                 }
                 else if (mate[0].equals("client 0"))
                 {
@@ -154,6 +159,7 @@ public class Client
                     else {
                         outputStream.writeUTF(gameObject.player1.getX() + " " + gameObject.player1.getY() + " 1" + "#" + mate[0]);
                         gameObject.player1.usingSpell = false;
+                        Thread.sleep(30);
                     }
                 }
             }

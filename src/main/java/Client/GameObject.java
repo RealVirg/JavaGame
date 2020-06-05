@@ -26,7 +26,7 @@ public class GameObject extends JPanel implements ActionListener
 
     boolean in_playing = false;
     boolean firstClient = false;
-    private int currentLvl = 1;
+    public int currentLvl = 1;
 
     int tmp = 0;
     int firstLoadLvl = 1;
@@ -35,7 +35,7 @@ public class GameObject extends JPanel implements ActionListener
     Player player1;
     Player player2;
     Cube cube;
-    private boolean changeLevel = false;
+    public boolean changeLevel = false;
 
     GameObject(JFrame Frame)
     {
@@ -142,6 +142,11 @@ public class GameObject extends JPanel implements ActionListener
         player1.checkStatus(room);
         if (changeLevel)
         {
+            //try {
+            //    Thread.sleep(1);
+            //} catch (InterruptedException ex) {
+            //    ex.printStackTrace();
+            //}
             currentLvl++;
             if (currentLvl == 5)
             {
@@ -154,7 +159,8 @@ public class GameObject extends JPanel implements ActionListener
         else if (room.reachedFinish(player1) && room.reachedFinish(player2))
         {
             //room.cube.force(Direction.LEFT, true, room);
-            changeLevel = true;
+            if (firstClient)
+                changeLevel = true;
         }
         if (firstClient) {
             room.cube.checkStatus(room);
