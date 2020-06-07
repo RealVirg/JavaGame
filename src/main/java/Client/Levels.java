@@ -8,12 +8,7 @@ class Levels
 
     public static int levelsCount = 8;
 
-    private static void createLevel0()
-    {
-
-    }
-
-    private static void createLevel8()
+    private static void createLevel1()
     {
         Room lvl = new Room(1080, 1920);
 
@@ -32,7 +27,7 @@ class Levels
         lvl.addObjects(new Platform(2000, 2000, 50, 500, Construction.FLOOR, 0));
         lvl.addObjects(new Cube(2050, 2000));
 
-        lvl.lvlNumber = 8;
+        lvl.lvlNumber = 1;
 
         levels.add(lvl);
     }
@@ -240,18 +235,54 @@ class Levels
         levels.add(lvl);
     }
 
-    private static void createLevel1()
+    private static void createLevel8()
     {
         Room lvl = new Room(1080, 1920);
 
-        lvl.lvlNumber = 1;
+        lvl.setFinish(1700, 1030);
+        lvl.setStart(1400,850, 50, 1030);
+
+        lvl.addObjects(new Platform(0, 1030, 50, 1920, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(0, 0, 50, 1920, Construction.FLOOR, 0));
+
+        lvl.addObjects(new Platform(1020, 850, 50, 900, Construction.FLOOR, 0));
+
+        lvl.addObjects(new Platform(1020, 900, 130, 50, Construction.WALL, 1));
+        lvl.addObjects(new Platform(1020, 50, 800, 50, Construction.WALL, 2));
+
+        lvl.addObjects(new Button(1100, 850, 1, 50));
+        lvl.addObjects(new Button(1700, 850, 2, 50));
+
+        lvl.addObjects(new Cube(1300, 1030));
+
+        lvl.lvlNumber = 8;
 
         levels.add(lvl);
     }
 
     private static void createLevel9()
     {
+        Room lvl = new Room(1080, 1920);
 
+        lvl.setFinish(1700, 1030);
+        lvl.setStart(1400,850, 50, 1030);
+
+        lvl.addObjects(new Platform(0, 1030, 50, 1920, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(0, 0, 50, 1920, Construction.FLOOR, 0));
+
+        lvl.addObjects(new Platform(1020, 850, 50, 900, Construction.FLOOR, 0));
+
+        lvl.addObjects(new Platform(1020, 900, 130, 50, Construction.WALL, 1));
+        lvl.addObjects(new Platform(1020, 50, 800, 50, Construction.WALL, 2));
+
+        lvl.addObjects(new Button(1100, 850, 1, 50));
+        lvl.addObjects(new Button(1700, 850, 2, 50));
+
+        lvl.addObjects(new Cube(1300, 1030));
+
+        lvl.lvlNumber = 9;
+
+        levels.add(lvl);
     }
 
     private static void createLevelDemo()
@@ -287,9 +318,7 @@ class Levels
 
     public static void createLevel(int number)
     {
-        if (number == 0)
-            createLevel0();
-        else if (number == 1)
+        if (number == 1)
             createLevel1();
         else if (number == 2)
             createLevel2();
