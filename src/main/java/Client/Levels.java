@@ -6,7 +6,7 @@ class Levels
 {
     static ArrayList<Room> levels = new ArrayList<Room>();
 
-    public static int levelsCount = 5;
+    public static int levelsCount = 6;
 
     private static void createLevel0()
     {
@@ -18,7 +18,7 @@ class Levels
         Room lvl = new Room(1080, 1920);
 
         lvl.setFinish(1400, 660);
-        lvl.setStart(50,1030);
+        lvl.setStart(50,1030, 50,1030);
 
         lvl.addObjects(new Platform(0, 1030, 50, 1920, Construction.FLOOR, 0));
         lvl.addObjects(new Platform(520, 900, 50, 500, Construction.FLOOR, 0));
@@ -42,7 +42,7 @@ class Levels
         Room lvl = new Room(1080, 1920);
 
         lvl.setFinish(1830, 1030);
-        lvl.setStart(50,1030);
+        lvl.setStart(50,1030, 50,1030);
 
         lvl.addObjects(new Platform(0, 1030, 50, 1920, Construction.FLOOR, 0));
         lvl.addObjects(new Platform(0, 0, 50, 1920, Construction.FLOOR, 0));
@@ -65,7 +65,7 @@ class Levels
         Room lvl = new Room(1080, 1920);
 
         lvl.setFinish(1830, 1030);
-        lvl.setStart(50,1030);
+        lvl.setStart(50,1030, 50, 1030);
 
         lvl.addObjects(new Platform(0, 1030, 50, 1920, Construction.FLOOR, 0));
         lvl.addObjects(new Platform(800, 800, 50, 1920, Construction.FLOOR, 0));
@@ -87,7 +87,7 @@ class Levels
         Room lvl = new Room(1080, 1920);
 
         lvl.setFinish(1500, 300);
-        lvl.setStart(100,300);
+        lvl.setStart(100,300, 100, 300);
 
         lvl.addObjects(new Platform(0, 1030, 50, 1920, Construction.FLOOR, 0));
         lvl.addObjects(new Platform(0, 0, 50, 1920, Construction.FLOOR, 0));
@@ -125,7 +125,7 @@ class Levels
         Room lvl = new Room(1080, 1920);
 
         lvl.setFinish(1500, 1030);
-        lvl.setStart(800,400);
+        lvl.setStart(800,400, 800, 400);
 
         lvl.addObjects(new Platform(0, 1030, 50, 1920, Construction.FLOOR, 0));
         lvl.addObjects(new Platform(0, 0, 50, 1920, Construction.FLOOR, 0));
@@ -164,7 +164,7 @@ class Levels
         Room lvl = new Room(1080, 1920);
 
         lvl.setFinish(800, 1030);
-        lvl.setStart(50,1030);
+        lvl.setStart(50,1030, 50, 1030);
 
         lvl.addObjects(new Platform(0, 1030, 50, 1920, Construction.FLOOR, 0));
         lvl.addObjects(new Platform(0, 0, 50, 1920, Construction.FLOOR, 0));
@@ -228,7 +228,7 @@ class Levels
         Room lvl = new Room(1080, 1920);
 
         lvl.setFinish(1870, 850);
-        lvl.setStart(50,1030);
+        lvl.setStart(50,1030, 50, 1030);
 
         lvl.addObjects(new Platform(0, 850, 50, 400, Construction.FLOOR, 0));
         lvl.addObjects(new Platform(400, 650, 50, 400, Construction.FLOOR, 0));

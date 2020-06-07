@@ -148,7 +148,7 @@ public class GameObject extends JPanel implements ActionListener
             //    ex.printStackTrace();
             //}
             currentLvl++;
-            if (currentLvl == 5)
+            if (currentLvl == Levels.levelsCount + 1)
             {
                 currentLvl = 1;
                 recreateLevels();

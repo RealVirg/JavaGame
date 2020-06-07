@@ -36,14 +36,14 @@ public class Room
             cube = (Cube)obj;
     }
 
-    public void setStart(int X, int Y)
+    public void setStart(int X1, int Y1, int X2, int Y2)
     {
-        startPositionX = X;
-        players.get(0).changeX(X);
-        players.get(1).changeX(X);
-        startPositionY = Y;
-        players.get(0).changeY(Y);
-        players.get(1).changeY(Y);
+        startPositionX = X1;
+        players.get(0).changeX(X1);
+        players.get(1).changeX(X2);
+        startPositionY = Y1;
+        players.get(0).changeY(Y1);
+        players.get(1).changeY(Y2);
     }
 
     public void setFinish(int X, int Y)
