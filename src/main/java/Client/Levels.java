@@ -32,7 +32,7 @@ class Levels
         levels.add(lvl);
     }
 
-    private static void createLevel9()
+    private static void createLevel2()
     {
         Room lvl = new Room(1080, 1920);
 
@@ -50,7 +50,7 @@ class Levels
 
         lvl.addObjects(new Cube(400, 1030));
 
-        lvl.lvlNumber = 9;
+        lvl.lvlNumber = 2;
 
         levels.add(lvl);
     }
@@ -261,7 +261,7 @@ class Levels
         levels.add(lvl);
     }
 
-    private static void createLevel2()
+    private static void createLevel9()
     {
         Room lvl = new Room(1080, 1920);
 
@@ -303,7 +303,7 @@ class Levels
 
         lvl.addObjects(new Cube(650,  300));
 
-        lvl.lvlNumber = 2;
+        lvl.lvlNumber = 9;
 
         levels.add(lvl);
     }

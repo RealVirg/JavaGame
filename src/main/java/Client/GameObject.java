@@ -23,6 +23,9 @@ public class GameObject extends JPanel implements ActionListener
     private Image imgButton = new ImageIcon("sprites/button.jpg").getImage();
     private Image imgCube = new ImageIcon("sprites/cube.jpg").getImage();
     private Image imgFinish = new ImageIcon("sprites/finish.jpg").getImage();
+    private Image imgActions = new ImageIcon("sprites/actions.jpg").getImage();
+    private Image imgActionPlayer1 = new ImageIcon("sprites/actionPlayer1.jpg").getImage();
+    private Image imgActionPlayer2 = new ImageIcon("sprites/actionPlayer2.jpg").getImage();
 
     boolean in_playing = false;
     boolean firstClient = false;
@@ -115,7 +118,18 @@ public class GameObject extends JPanel implements ActionListener
     public void paint(Graphics g)
     {
         g.drawImage(imgBackground, 0, 0,frame.getWidth(), frame.getHeight(), null);
-        if (in_playing) {
+        if (in_playing)
+        {
+            if (currentLvl == 1)
+                g.drawImage(imgActions, 250, 600, 150, 150, null);
+
+            if (currentLvl == 2)
+                if (firstClient)
+                    g.drawImage(imgActionPlayer1, 250, 600, 150, 75, null);
+                else
+                    g.drawImage(imgActionPlayer2, 250, 600, 150, 150, null);
+
+
             for (Platform e: room.floors)
             {
                 g.drawImage(imgFloor, e.x, e.y, e.width, e.height, null);
