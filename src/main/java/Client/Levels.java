@@ -159,6 +159,70 @@ class Levels
         levels.add(lvl);
     }
 
+    private static void createLevel6()
+    {
+        Room lvl = new Room(1080, 1920);
+
+        lvl.setFinish(800, 1030);
+        lvl.setStart(50,1030);
+
+        lvl.addObjects(new Platform(0, 1030, 50, 1920, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(0, 0, 50, 1920, Construction.FLOOR, 0));
+
+        lvl.addObjects(new Platform(0, 850, 50, 300, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(550, 250, 50, 150, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(800, 250, 50, 850, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(0, 250, 50, 150, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(150, 600, 50, 50, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(280, 420, 50, 90, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(550, 800, 50, 150, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(800, 800, 50, 150, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(1100, 900, 50, 50, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(1150, 650, 50, 50, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(1350, 550, 50, 50, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(1600, 550, 50, 50, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(1800, 250, 50, 120, Construction.FLOOR, 0));
+
+        lvl.addObjects(new Platform(500, 50, 100, 50, Construction.WALL, 0));
+        lvl.addObjects(new Platform(500, 250, 680, 50, Construction.WALL, 0));
+        lvl.addObjects(new Platform(950, 800, 230, 50, Construction.WALL, 0));
+
+        lvl.addObjects(new Platform(700, 250, 50, 100, Construction.WALL, 1));
+        lvl.addObjects(new Platform(700, 250, 50, 100, Construction.WALL, 2));
+        lvl.addObjects(new Platform(500, 930, 100, 50, Construction.WALL, 3));
+        lvl.addObjects(new Platform(1730, -600, 50, 50, Construction.WALL, 4));
+        lvl.addObjects(new Platform(700, 800, 50, 100, Construction.WALL, 5));
+        lvl.addObjects(new Platform(950, 50, 200, 50, Construction.WALL, 6));
+
+        lvl.addObjects(new Button(600, 250, 1, 50));
+        lvl.addObjects(new Button(850, 250, 2, 50));
+        lvl.addObjects(new Button(1850, 250, 3, 50));
+        lvl.addObjects(new Button(50, 250, 4, 50));
+        lvl.addObjects(new Button(1100, 250, 5, 50));
+        lvl.addObjects(new Button(600, 1030, 6, 50));
+
+        lvl.addObjects(new Cube(150, 600));
+
+        lvl.lvlNumber = 6;
+
+        levels.add(lvl);
+    }
+
+    private static void createLevel7()
+    {
+
+    }
+
+    private static void createLevel8()
+    {
+
+    }
+
+    private static void createLevel9()
+    {
+
+    }
+
     private static void createLevelDemo()
     {
         Room lvl = new Room(1080, 1920);
@@ -204,5 +268,13 @@ class Levels
             createLevel4();
         else if (number == 5)
             createLevel5();
+        else if (number == 6)
+            createLevel6();
+        else if (number == 7)
+            createLevel7();
+        else if (number == 8)
+            createLevel8();
+        else if (number == 9)
+            createLevel9();
     }
 }
