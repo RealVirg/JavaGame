@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.io.*;
 import java.net.*;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 public class ClientA
 {
@@ -88,6 +89,7 @@ public class ClientA
         boolean run = true;
         while (run)
         {
+
             Thread.sleep(1);
             if (mate[0].equals("client 1"))
             {
@@ -118,6 +120,10 @@ public class ClientA
                 {
                     gameObject.cube.changeX(Double.parseDouble(ar[2]));
                     gameObject.cube.changeY(Double.parseDouble((ar[3])));
+                    if (Integer.parseInt(ar[4]) != gameObject.currentLvl)
+                    {
+                        gameObject.changeLevel = true;
+                    }
                 }
                 if (mate[0].equals("client 1"))
                 {
@@ -128,7 +134,7 @@ public class ClientA
                     }
                     if (ar[2].equals("1"))
                     {
-                        if (gameObject.player2.getX() > gameObject.player1.getY())
+                        if (gameObject.player2.getX() > gameObject.cube.getX())
                             gameObject.cube.force(Direction.LEFT, true, gameObject.room);
                         else
                             gameObject.cube.force(Direction.RIGHT, true, gameObject.room);
@@ -137,14 +143,14 @@ public class ClientA
                 }
             }
 
-
             //main game method
 
             if (!mate[0].equals("nothing"))
             {
                 if (mate[0].equals("client 1"))
                 {
-                    outputStream.writeUTF(gameObject.player1.getX() + " " + gameObject.player1.getY() + " " + gameObject.cube.getX() + " " + gameObject.cube.getY() + "#" + mate[0]);
+                    outputStream.writeUTF(gameObject.player1.getX() + " " + gameObject.player1.getY() + " " + gameObject.cube.getX() + " " +
+                            gameObject.cube.getY() + " " + gameObject.currentLvl + "#" + mate[0]);
                 }
                 else if (mate[0].equals("client 0"))
                 {
@@ -153,6 +159,7 @@ public class ClientA
                     else {
                         outputStream.writeUTF(gameObject.player1.getX() + " " + gameObject.player1.getY() + " 1" + "#" + mate[0]);
                         gameObject.player1.usingSpell = false;
+                        Thread.sleep(30);
                     }
                 }
             }
