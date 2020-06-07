@@ -6,14 +6,14 @@ class Levels
 {
     static ArrayList<Room> levels = new ArrayList<Room>();
 
-    public static int levelsCount = 6;
+    public static int levelsCount = 8;
 
     private static void createLevel0()
     {
 
     }
 
-    private static void createLevel1()
+    private static void createLevel8()
     {
         Room lvl = new Room(1080, 1920);
 
@@ -32,7 +32,7 @@ class Levels
         lvl.addObjects(new Platform(2000, 2000, 50, 500, Construction.FLOOR, 0));
         lvl.addObjects(new Cube(2050, 2000));
 
-        lvl.lvlNumber = 1;
+        lvl.lvlNumber = 8;
 
         levels.add(lvl);
     }
@@ -210,12 +210,43 @@ class Levels
 
     private static void createLevel7()
     {
+        Room lvl = new Room(1080, 1920);
 
+        lvl.setFinish(100, 300);
+        lvl.setStart(50,1030, 50, 500);
+
+        lvl.addObjects(new Platform(0, 1030, 50, 1920, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(0, 0, 50, 1920, Construction.FLOOR, 0));
+
+        lvl.addObjects(new Platform(0, 500, 50, 400, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(0, 300, 50, 200, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(350, 800, 50, 1250, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(350, 350, 50, 950, Construction.FLOOR, 0));
+        lvl.addObjects(new Platform(1500, 350, 50, 420, Construction.FLOOR, 0));
+
+        lvl.addObjects(new Platform(350, 400, 100, 50, Construction.WALL, 0));
+        lvl.addObjects(new Platform(1250, 400, 400, 50, Construction.WALL, 0));
+
+
+        lvl.addObjects(new Platform(350, 550, 250, 50, Construction.WALL, 1));
+        lvl.addObjects(new Platform(1100, 50, 300, 50, Construction.WALL, 1));
+
+        lvl.addObjects(new Button(600, 1030, 1, 50));
+
+        lvl.addObjects(new Cube(1000, 800));
+
+        lvl.lvlNumber = 7;
+
+        levels.add(lvl);
     }
 
-    private static void createLevel8()
+    private static void createLevel1()
     {
+        Room lvl = new Room(1080, 1920);
 
+        lvl.lvlNumber = 1;
+
+        levels.add(lvl);
     }
 
     private static void createLevel9()

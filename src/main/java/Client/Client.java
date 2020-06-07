@@ -132,6 +132,11 @@ public class Client
                         gameObject.player1.usingSpell = false;
                         gameObject.cube.changeGravity();
                     }
+                    if (ar[3].equals("1"))
+                    {
+                        gameObject.recreateLevels();
+                        gameObject.loadLevel(gameObject.currentLvl);
+                    }
                     if (ar[2].equals("1"))
                     {
                         if (gameObject.player2.getX() > gameObject.cube.getX())
@@ -154,10 +159,29 @@ public class Client
                 }
                 else if (mate[0].equals("client 0"))
                 {
-                    if (!gameObject.player1.usingSpell)
-                        outputStream.writeUTF(gameObject.player1.getX() + " " + gameObject.player1.getY() + " 0" + "#" + mate[0]);
+                    if (!gameObject.player1.usingSpell) {
+                        if (gameObject.player1.restartLevel) {
+                            outputStream.writeUTF(gameObject.player1.getX() + " " + gameObject.player1.getY() + " 0" + " 1" + "#" + mate[0]);
+                            gameObject.recreateLevels();
+                            gameObject.loadLevel(gameObject.currentLvl);
+                            gameObject.player1.restartLevel = false;
+                        }
+                        else {
+                            outputStream.writeUTF(gameObject.player1.getX() + " " + gameObject.player1.getY() + " 0" + " 0" + "#" + mate[0]);
+                        }
+                        Thread.sleep(30);
+                    }
                     else {
-                        outputStream.writeUTF(gameObject.player1.getX() + " " + gameObject.player1.getY() + " 1" + "#" + mate[0]);
+                        if (gameObject.player1.restartLevel) {
+                            outputStream.writeUTF(gameObject.player1.getX() + " " + gameObject.player1.getY() + " 1" + " 1" + "#" + mate[0]);
+                            gameObject.recreateLevels();
+                            gameObject.loadLevel(gameObject.currentLvl);
+                            gameObject.player1.restartLevel = false;
+                        }
+                        else
+                        {
+                            outputStream.writeUTF(gameObject.player1.getX() + " " + gameObject.player1.getY() + " 1" + " 0" + "#" + mate[0]);
+                        }
                         gameObject.player1.usingSpell = false;
                         Thread.sleep(30);
                     }

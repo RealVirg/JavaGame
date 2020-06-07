@@ -87,7 +87,7 @@ public class GameObject extends JPanel implements ActionListener
         });
     }
 
-    private void loadLevel(int levelNumber)
+    public void loadLevel(int levelNumber)
     {
         room = Levels.levels.get(levelNumber - 1);
         player1 =  Levels.levels.get(levelNumber - 1).players.get(0);
@@ -95,7 +95,7 @@ public class GameObject extends JPanel implements ActionListener
         cube = Levels.levels.get(levelNumber - 1).cube;
     }
 
-    private void recreateLevels()
+    public void recreateLevels()
     {
         Levels.levels.clear();
         for (int i = firstLoadLvl; i <= Levels.levelsCount; i++)

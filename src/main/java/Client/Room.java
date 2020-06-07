@@ -39,11 +39,11 @@ public class Room
     public void setStart(int X1, int Y1, int X2, int Y2)
     {
         startPositionX = X1;
-        players.get(0).changeX(X1);
-        players.get(1).changeX(X2);
+        players.get(0).changeX(X2);
+        players.get(1).changeX(X1);
         startPositionY = Y1;
-        players.get(0).changeY(Y1);
-        players.get(1).changeY(Y2);
+        players.get(0).changeY(Y2);
+        players.get(1).changeY(Y1);
     }
 
     public void setFinish(int X, int Y)
@@ -51,6 +51,8 @@ public class Room
         roomFinishX = X;
         roomFinishY = Y;
     }
+
+
 
     public Room(int H, int W)
     {
