@@ -17,8 +17,10 @@ public class Room
     public int roomFinishY;
     public ArrayList<Player> players;
 
-    private int startPositionX;
-    private int startPositionY;
+    int startPositionX1;
+    int startPositionY1;
+    int startPositionX2;
+    int startPositionY2;
 
     public void addObjects(Object obj)
     {
@@ -38,12 +40,10 @@ public class Room
 
     public void setStart(int X1, int Y1, int X2, int Y2)
     {
-        startPositionX = X1;
-        players.get(0).changeX(X2);
-        players.get(1).changeX(X1);
-        startPositionY = Y1;
-        players.get(0).changeY(Y2);
-        players.get(1).changeY(Y1);
+        startPositionX1 = X1;
+        startPositionY1 = Y1;
+        startPositionX2 = X2;
+        startPositionY2 = Y2;
     }
 
     public void setFinish(int X, int Y)
@@ -52,8 +52,6 @@ public class Room
         roomFinishY = Y;
     }
 
-
-
     public Room(int H, int W)
     {
         buttons = new ArrayList<Button>();
@@ -61,8 +59,8 @@ public class Room
         walls = new ArrayList<Platform>();
 
         players = new ArrayList<Player>();
-        players.add(new Player(startPositionX, startPositionY, 20, 50));
-        players.add(new Player(startPositionX, startPositionY, 20, 50));
+        players.add(new Player(0, 0, 20, 50));
+        players.add(new Player(0, 0, 20, 50));
 
         height = H;
         width = W;

@@ -93,6 +93,16 @@ public class GameObject extends JPanel implements ActionListener
         player1 =  Levels.levels.get(levelNumber - 1).players.get(0);
         player2  = Levels.levels.get(levelNumber - 1).players.get(1);
         cube = Levels.levels.get(levelNumber - 1).cube;
+        if(firstClient)
+        {
+            player1.changeX(room.startPositionX1);
+            player1.changeY(room.startPositionY1);
+        }
+        else
+        {
+            player1.changeX(room.startPositionX2);
+            player1.changeY(room.startPositionY2);
+        }
     }
 
     public void recreateLevels()
