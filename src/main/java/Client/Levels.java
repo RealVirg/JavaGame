@@ -292,6 +292,7 @@ class Levels
         lvl.addObjects(new Platform(550, 350, 150, 50, Construction.WALL, 4));
         lvl.addObjects(new Platform(800, 550, 150, 50, Construction.WALL, 5));
         lvl.addObjects(new Platform(1150, 550, 150, 50, Construction.WALL, 6));
+        lvl.addObjects(new Platform(1200, 500, 50, 200, Construction.WALL, 6));
 
         lvl.addObjects(new Button(450, 500, 1, 50));
         lvl.addObjects(new Button(600, 870, 2, 50));
